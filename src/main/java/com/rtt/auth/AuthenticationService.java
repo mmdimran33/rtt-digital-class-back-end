@@ -1,5 +1,6 @@
 package com.rtt.auth;
 
+import com.rtt.common.RegistrationResponse;
 import com.rtt.config.JwtService;
 import com.rtt.token.Token;
 import com.rtt.token.TokenRepository;
@@ -27,11 +28,12 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
-  public AuthenticationResponse register(RegisterRequest request) {
+  public RegistrationResponse register(RegisterRequest request) {
     var user = User.builder()
         .firstname(request.getFirstname())
         .lastname(request.getLastname())
         .email(request.getEmail())
+            .mobileNo(request.getMobileNo())
         .password(passwordEncoder.encode(request.getPassword()))
         .role(request.getRole())
         .build();
@@ -39,7 +41,7 @@ public class AuthenticationService {
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
-    return AuthenticationResponse.builder()
+    return RegistrationResponse.builder()
         .accessToken(jwtToken)
             .refreshToken(refreshToken)
         .build();
