@@ -1,5 +1,8 @@
 package com.rtt.auth;
 
+import com.rtt.common.RegistrationResponse;
+import com.rtt.constants.RegistrationResponseConstants;
+import com.rtt.exception.RegistrationException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +22,19 @@ public class AuthenticationController {
   private final AuthenticationService service;
 
   @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
-      @RequestBody RegisterRequest request
-  ) {
-    return ResponseEntity.ok(service.register(request));
+  public ResponseEntity<RegistrationResponse> register(
+      @RequestBody RegisterRequest request) throws RegistrationException {
+
+    try{
+      RegistrationResponse response  = service.register(request);
+      response.setResponseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE);
+      response.setResponseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION);
+      return ResponseEntity.ok(response);
+
+    }catch (Exception e){
+    throw new RegistrationException (RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
+              RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
+    }
   }
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(

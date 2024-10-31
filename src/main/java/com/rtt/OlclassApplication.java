@@ -8,8 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import static com.rtt.user.Role.ADMIN;
-import static com.rtt.user.Role.MANAGER;
+import static com.rtt.user.Role.*;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
@@ -19,29 +18,29 @@ public class OlclassApplication {
 		SpringApplication.run(OlclassApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthenticationService service
 	) {
 		return args -> {
 			var admin = RegisterRequest.builder()
-					.firstname("Admin")
-					.lastname("Admin")
-					.email("admin@mail.com")
-					.password("password")
+					.firstname("Imran")
+					.lastname("Chaudhary")
+					.email("imran1@mail.com")
+					.password("imranadmin1@123")
 					.role(ADMIN)
 					.build();
 			System.out.println("Admin token: " + service.register(admin).getAccessToken());
 
 			var manager = RegisterRequest.builder()
-					.firstname("Admin")
-					.lastname("Admin")
-					.email("manager@mail.com")
-					.password("password")
-					.role(MANAGER)
+					.firstname("Adnan")
+					.lastname("Chaudhary")
+					.email("adnan1@mail.com")
+					.password("adnan1@1234")
+					.role(TEACHER)
 					.build();
 			System.out.println("Manager token: " + service.register(manager).getAccessToken());
 
 		};
-	}
+	}*/
 }

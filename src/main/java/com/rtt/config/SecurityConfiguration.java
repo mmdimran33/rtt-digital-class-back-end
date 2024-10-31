@@ -17,12 +17,12 @@ import static com.rtt.user.Permission.ADMIN_CREATE;
 import static com.rtt.user.Permission.ADMIN_DELETE;
 import static com.rtt.user.Permission.ADMIN_READ;
 import static com.rtt.user.Permission.ADMIN_UPDATE;
-import static com.rtt.user.Permission.MANAGER_CREATE;
-import static com.rtt.user.Permission.MANAGER_DELETE;
-import static com.rtt.user.Permission.MANAGER_READ;
-import static com.rtt.user.Permission.MANAGER_UPDATE;
+import static com.rtt.user.Permission.TEACHER_CREATE;
+import static com.rtt.user.Permission.TEACHER_DELETE;
+import static com.rtt.user.Permission.TEACHER_READ;
+import static com.rtt.user.Permission.TEACHER_UPDATE;
 import static com.rtt.user.Role.ADMIN;
-import static com.rtt.user.Role.MANAGER;
+import static com.rtt.user.Role.TEACHER;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -58,11 +58,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
-                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
+                                .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), TEACHER.name())
+                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), TEACHER_READ.name())
+                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), TEACHER_CREATE.name())
+                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), TEACHER_UPDATE.name())
+                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), TEACHER_DELETE.name())
                                 .anyRequest()
                                 .authenticated()
                 )
