@@ -1,10 +1,10 @@
 package com.rtt.auth;
 
-import com.rtt.common.RegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +22,14 @@ public class AuthenticationController {
   private final AuthenticationService service;
 
   @PostMapping("/register")
-  public ResponseEntity<RegistrationResponse> register(
+  public ResponseEntity<RegistrationServiceResponse> register(
       @RequestBody RegisterRequest request) throws RegistrationException {
 
     try{
       RegistrationResponse response  = service.register(request);
       response.setResponseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE);
       response.setResponseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION);
-      return ResponseEntity.ok(response);
+      return ResponseEntity.ok(RegistrationServiceResponse.builder().registrationResponse(response).build());
 
     }catch (Exception e){
     throw new RegistrationException (RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
