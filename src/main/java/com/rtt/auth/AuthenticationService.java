@@ -1,6 +1,5 @@
 package com.rtt.auth;
 
-import com.rtt.common.RegistrationResponse;
 import com.rtt.config.JwtService;
 import com.rtt.token.Token;
 import com.rtt.token.TokenRepository;

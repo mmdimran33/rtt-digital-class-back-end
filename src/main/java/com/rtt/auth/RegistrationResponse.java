@@ -1,4 +1,4 @@
-package com.rtt.common;
+package com.rtt.auth;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
