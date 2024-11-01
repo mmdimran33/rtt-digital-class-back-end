@@ -19,14 +19,14 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-  private final AuthenticationService service;
+  private final AuthenticationService authenticationService;
 
   @PostMapping("/register")
   public ResponseEntity<RegistrationServiceResponse> register(
       @RequestBody RegisterRequest request) throws RegistrationException {
 
     try{
-      RegistrationResponse response  = service.register(request);
+      RegistrationResponse response  = authenticationService.register(request);
       response.setResponseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE);
       response.setResponseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION);
       return ResponseEntity.ok(RegistrationServiceResponse.builder().registrationResponse(response).build());
@@ -37,10 +37,11 @@ public class AuthenticationController {
     }
   }
   @PostMapping("/authenticate")
-  public ResponseEntity<AuthenticationResponse> authenticate(
+  public ResponseEntity<UserLoginResponse> authenticate(
       @RequestBody AuthenticationRequest request
   ) {
-    return ResponseEntity.ok(service.authenticate(request));
+    AuthenticationResponse authenticationResponse = authenticationService.authenticate(request);
+    return ResponseEntity.ok(UserLoginResponse.builder().authenticationResponse(authenticationResponse).build());
   }
 
   @PostMapping("/refresh-token")
@@ -48,7 +49,7 @@ public class AuthenticationController {
       HttpServletRequest request,
       HttpServletResponse response
   ) throws IOException {
-    service.refreshToken(request, response);
+    authenticationService.refreshToken(request, response);
   }
 
 
