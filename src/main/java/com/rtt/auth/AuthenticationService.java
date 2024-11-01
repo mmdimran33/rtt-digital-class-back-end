@@ -1,6 +1,8 @@
 package com.rtt.auth;
 
 import com.rtt.config.JwtService;
+import com.rtt.exception.AuthenticationException;
+import com.rtt.exception.CustomUsernameNotFoundException;
 import com.rtt.token.Token;
 import com.rtt.token.TokenRepository;
 import com.rtt.token.TokenType;
@@ -12,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,22 +50,32 @@ public class AuthenticationService {
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
+  try{
     authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-            request.getEmail(),
-            request.getPassword()
-        )
+            new UsernamePasswordAuthenticationToken(
+                    request.getEmail(),
+                    request.getPassword()
+            )
     );
     var user = repository.findByEmail(request.getEmail())
-        .orElseThrow();
+            .orElseThrow(() -> new CustomUsernameNotFoundException("User not found"));
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
+            .userName(user.getEmail())
+            .accessToken(jwtToken)
             .refreshToken(refreshToken)
-        .build();
+            .build();
+  }
+  catch (BadCredentialsException e) {
+    // Handle bad credentials error
+    throw new AuthenticationException("Username and password are invalid!", e);
+  } catch (Exception e) {
+    // Handle any other exceptions
+    throw new AuthenticationException("An error occurred during authentication: " + e.getMessage(), e);
+  }
   }
 
   private void saveUserToken(User user, String jwtToken) {
