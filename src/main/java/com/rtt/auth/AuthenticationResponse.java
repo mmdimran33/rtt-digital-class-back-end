@@ -23,4 +23,7 @@ public class AuthenticationResponse {
   @JsonProperty("user_name")
   private String userName;
 
+  @JsonProperty("user_role")
+  private String userRole;
+
 }
