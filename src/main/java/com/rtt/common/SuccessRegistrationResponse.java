@@ -1,4 +1,4 @@
-package com.rtt.auth;
+package com.rtt.common;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,12 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class  RegistrationResponse {
-
-    @JsonProperty("access_token")
-    private String accessToken;
-    @JsonProperty("refresh_token")
-    private String refreshToken;
+public class SuccessRegistrationResponse {
 
     @JsonProperty("response_code")
     private String responseCode;
