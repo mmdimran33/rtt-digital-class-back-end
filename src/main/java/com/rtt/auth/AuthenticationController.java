@@ -1,5 +1,6 @@
 package com.rtt.auth;
 
+import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.AuthenticationException;
 import com.rtt.exception.RegistrationException;
@@ -29,10 +30,8 @@ public class AuthenticationController {
       @RequestBody RegisterRequest request) throws RegistrationException {
 
     try{
-      RegistrationResponse response  = authenticationService.register(request);
-      response.setResponseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE);
-      response.setResponseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION);
-      return ResponseEntity.ok(RegistrationServiceResponse.builder().registrationResponse(response).build());
+      SuccessRegistrationResponse response  = authenticationService.register(request);
+      return ResponseEntity.ok(RegistrationServiceResponse.builder().successRegistrationResponse(response).build());
 
     }catch (Exception e){
     throw new RegistrationException (RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,

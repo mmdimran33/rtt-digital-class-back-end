@@ -1,6 +1,8 @@
 package com.rtt.auth;
 
+import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.config.JwtService;
+import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.AuthenticationException;
 import com.rtt.exception.CustomUsernameNotFoundException;
 import com.rtt.token.Token;
@@ -30,7 +32,7 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
-  public RegistrationResponse register(RegisterRequest request) {
+  public SuccessRegistrationResponse register(RegisterRequest request) {
     var user = User.builder()
         .firstname(request.getFirstname())
         .lastname(request.getLastname())
@@ -43,10 +45,9 @@ public class AuthenticationService {
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
-    return RegistrationResponse.builder()
-        .accessToken(jwtToken)
-            .refreshToken(refreshToken)
-        .build();
+    return SuccessRegistrationResponse.builder().
+    responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
+            .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION).build();
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {

@@ -42,19 +42,15 @@ public class StudentServiceImpl implements StudentI {
             student.setStudentStandard(standard);
             StudentEntity savedStudent = repository.save(student);
 
-            // Check if the save operation was successful
             if (savedStudent.getStudentId() != null) {
-                SuccessRegistrationResponse.builder().
-                        responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE).build();
-                SuccessRegistrationResponse.builder().responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION);
-
+           return SuccessRegistrationResponse.builder().responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
+                        .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION).build();
             }
-            return null;
 
         }catch (Exception e){
             throw new RegistrationException(RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
                     RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
         }
-
+    return null;
     }
 }
