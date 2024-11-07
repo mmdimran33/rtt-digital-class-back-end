@@ -50,6 +50,7 @@ public class SecurityConfiguration {
             "/api/v1/teachers/**",
 
     };
+    "api/v1/student/**"};
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
