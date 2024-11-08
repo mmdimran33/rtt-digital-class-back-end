@@ -49,6 +49,10 @@ public class SecurityConfiguration {
             "api/v1/customer/test",
             "api/v1/student/**",
             "/api/v1/standardandfees/**"};
+            "/api/v1/teachers/**",
+
+    };
+    "api/v1/student/**"};
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
