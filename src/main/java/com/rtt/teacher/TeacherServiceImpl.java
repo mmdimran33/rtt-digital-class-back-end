@@ -26,7 +26,7 @@ public class TeacherServiceImpl implements TeacherI{
                     .salary(teacherRequest.getSalary())
                     .mailId(teacherRequest.getMailId())
                     .teacherQualification(teacherRequest.getTeacherQualification())
-                    .teacherPhoto(teacherRequest.getTeacherPhoto())
+                    //.teacherPhoto(teacherRequest.getTeacherPhoto())
                     .build();
 
             // Save the teacher entity

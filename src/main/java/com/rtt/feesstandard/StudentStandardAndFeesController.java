@@ -24,7 +24,7 @@ public class StudentStandardAndFeesController {
         @RequestBody StudentStandardAndFeesRequest studentStandardAndFeesRequest)throws RegistrationException {
 
             try{
-                SuccessRegistrationResponse response  =studentStandardAndFeesI.addStandardAndFees(studentStandardAndFeesRequest);
+                SuccessRegistrationResponse response  =studentStandardAndFeesI.addOrUpdateFees(studentStandardAndFeesRequest);
                 return ResponseEntity.ok(StudentStandardAndFeesServiceResponse.builder().successRegistrationResponse(response).build());
             }catch (Exception e){
                 throw new RegistrationException (RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
