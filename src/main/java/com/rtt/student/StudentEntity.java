@@ -41,7 +41,7 @@ public class StudentEntity {
     @Column(name = "registration_date")
     private LocalDate registrationDate;
 
-    // One-to-One relationship with StudentStandard
+    // One-to-One bi-directional relationship flow from StudentStandard to StudentEntity
     @OneToOne(mappedBy = "studentEntity", cascade = CascadeType.ALL)
     private StudentStandard studentStandard;
 
