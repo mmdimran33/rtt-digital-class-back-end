@@ -47,7 +47,8 @@ public class SecurityConfiguration {
             "/webjars/**",
             "/swagger-ui.html",
             "api/v1/customer/test",
-    "api/v1/student/**"};
+            "api/v1/student/**",
+            "/api/v1/standardandfees/**"};
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
