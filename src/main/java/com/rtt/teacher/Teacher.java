@@ -2,11 +2,13 @@ package com.rtt.teacher;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Blob;
 
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="teacher_Id")
-    private int teacherId;
+    private Integer teacherId;
     @Column(name="teacher_Name")
     private  String teacherName;
     @Column(name="teacher_Subject")
@@ -30,8 +32,8 @@ public class Teacher {
     private float salary;
     @Column(name="mail_Id")
     private String mailId;
-    @Column(name="teacher_Photo")
-    private Blob teacherPhoto;
+//    @Column(name="teacher_Photo")
+//    private Blob teacherPhoto;
     @Column(name="teacher_Qualification")
     private String teacherQualification;
 

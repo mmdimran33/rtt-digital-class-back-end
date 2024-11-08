@@ -35,6 +35,9 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
+    private final JwtAuthenticationFilter jwtAuthFilter;
+    private final AuthenticationProvider authenticationProvider;
+    private final LogoutHandler logoutHandler;
     private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
             "/v2/api-docs",
             "/v3/api-docs",
@@ -50,13 +53,7 @@ public class SecurityConfiguration {
             "api/v1/student/**",
             "/api/v1/standardandfees/**"};
             "/api/v1/teachers/**",
-
-    };
-    "api/v1/student/**"};
-    private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
-    private final LogoutHandler logoutHandler;
-
+            "api/v1/student/**"};
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
