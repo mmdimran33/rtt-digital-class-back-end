@@ -9,19 +9,29 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.rtt.user.Permission.ADMIN_CREATE;
-import static com.rtt.user.Permission.ADMIN_DELETE;
-import static com.rtt.user.Permission.ADMIN_READ;
-import static com.rtt.user.Permission.ADMIN_UPDATE;
-import static com.rtt.user.Permission.TEACHER_CREATE;
-import static com.rtt.user.Permission.TEACHER_DELETE;
-import static com.rtt.user.Permission.TEACHER_READ;
-import static com.rtt.user.Permission.TEACHER_UPDATE;
+import static com.rtt.user.Permission.*;
 
 @RequiredArgsConstructor
 public enum Role {
 
   USER(Collections.emptySet()),
+
+  SUPERADMIN(
+          Set.of(
+                  SUPERADMIN_READ,
+                  SUPERADMIN_UPDATE,
+                  SUPERADMIN_DELETE,
+                  SUPERADMIN_CREATE,
+                  ADMIN_READ,
+                  ADMIN_UPDATE,
+                  ADMIN_DELETE,
+                  ADMIN_CREATE,
+                  TEACHER_READ,
+                  TEACHER_UPDATE,
+                  TEACHER_DELETE,
+                  TEACHER_CREATE
+          )
+  ),
   ADMIN(
           Set.of(
                   ADMIN_READ,
