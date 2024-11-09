@@ -6,6 +6,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Permission {
 
+    SUPERADMIN_READ("superadmin:read"),
+    SUPERADMIN_UPDATE("superadmin:update"),
+    SUPERADMIN_CREATE("superadmin:create"),
+    SUPERADMIN_DELETE("superadmin:delete"),
     ADMIN_READ("admin:read"),
     ADMIN_UPDATE("admin:update"),
     ADMIN_CREATE("admin:create"),
