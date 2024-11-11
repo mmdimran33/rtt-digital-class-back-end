@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFeesI{
+public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFeesI {
 
     @Autowired
     private StudentStandardAndFeesRepository studentStandardAndFeesRepository;
@@ -36,7 +36,6 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
             }
 
             StudentStandardAndFeesEntity savedStandardFees = studentStandardAndFeesRepository.save(standardAndFees);
-
             // Success response if saved successfully
             if (savedStandardFees.getFeeId() != null) {
                 return SuccessRegistrationResponse.builder()
@@ -44,7 +43,6 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
                         .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION)
                         .build();
             }
-
         } catch (Exception e) {
             throw new RegistrationException(
                     RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
@@ -52,6 +50,36 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
             );
         }
         return null;
-
     }
+
+
+    //09-11 changes
+    @Override
+    public SuccessRegistrationResponse getFeeAmountByStandardName(String standardName) {
+        try {
+            Optional<StudentStandardAndFeesEntity> standardAndFeesRecord = studentStandardAndFeesRepository.findByStandardName(standardName);
+
+            if (standardAndFeesRecord.isPresent()) {
+                StudentStandardAndFeesEntity studentStandardAndFees = standardAndFeesRecord.get();
+                Integer standardFeeAmount = standardAndFeesRecord.get().getFeeAmount();
+                // Return a success response with the fee amount
+                return SuccessRegistrationResponse.builder()
+                        .responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
+                        .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION + standardFeeAmount)
+                        .build();
+            } else {
+                return SuccessRegistrationResponse.builder()
+                        .responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE)
+                        .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION)
+                        .build();
+            }
+        } catch (Exception e) {
+            throw new RegistrationException(
+                    RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
+                    RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION);
+        }
+    }
+
 }
+
+

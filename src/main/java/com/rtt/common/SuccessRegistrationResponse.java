@@ -18,4 +18,6 @@ public class SuccessRegistrationResponse {
 
     @JsonProperty("response_description")
     private String responseDescription;
+
+
 }

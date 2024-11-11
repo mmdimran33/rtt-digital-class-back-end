@@ -7,10 +7,7 @@ import com.rtt.student.StudentRequest;
 import com.rtt.student.StudentServiceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/standardandfees")
@@ -31,4 +28,20 @@ public class StudentStandardAndFeesController {
                         RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
             }
         }
+// Fresh Changez
+    @GetMapping("/get-student-fee-amount-by-standard-name")
+    public ResponseEntity<StudentStandardAndFeesServiceResponse> getFeeAmountByStandardName(
+            @RequestParam String standardName)  {
+
+        try {
+            // Call the service method to get fee amount based on standard name
+            SuccessRegistrationResponse response = studentStandardAndFeesI.getFeeAmountByStandardName(standardName);
+            // Return the response wrapped in a ResponseEntity
+            return ResponseEntity.ok(StudentStandardAndFeesServiceResponse.builder().successRegistrationResponse(response).build());
+        } catch (Exception e) {
+            throw new RegistrationException(RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
+                    RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
+        }
+    }
+
 }
