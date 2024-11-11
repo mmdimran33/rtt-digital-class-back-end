@@ -8,6 +8,7 @@ import com.rtt.student.StudentServiceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/standardandfees")
@@ -28,7 +29,7 @@ public class StudentStandardAndFeesController {
                         RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
             }
         }
-// Fresh Changes
+
     @GetMapping("/get-student-fee-amount-by-standard-name")
     public StudentStandardAndFeesAmountServiceResponse getFeeAmountByStandardName(
             @RequestParam String standardName)  {
@@ -38,6 +39,12 @@ public class StudentStandardAndFeesController {
             return StudentStandardAndFeesAmountServiceResponse.builder().studentStandardFeesAmountServiceResponse(response)
                     .build();
 
+    @GetMapping("/standard-list")
+    public StudentStandardAndFeesListServiceResponse getStandardAndFeesList() {
+        //List<StudentStandardAndFeesEntity>studentStandardAndFeesList =  studentStandardAndFeesI.getStandardAndFeesList();
+        return StudentStandardAndFeesListServiceResponse.builder().
+                studentStandardAndFeesEntityList(studentStandardAndFeesI.getStandardAndFeesList()).build();
     }
 
 }
+

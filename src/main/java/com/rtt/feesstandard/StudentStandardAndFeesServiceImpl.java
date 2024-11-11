@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+
+import java.util.List;
+
 import java.util.Optional;
 
 @Service
@@ -17,6 +20,7 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
 
     @Override
     public SuccessRegistrationResponse addOrUpdateFees(StudentStandardAndFeesRequest studentStandardAndFeesRequest) {
+
 
         try {
             // Check if a record with the same standard name already exists
@@ -69,4 +73,8 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
 
 }
 
-
+    @Override
+    public List<StudentStandardAndFeesEntity> getStandardAndFeesList() {
+        return studentStandardAndFeesRepository.findAll();
+    }
+}
