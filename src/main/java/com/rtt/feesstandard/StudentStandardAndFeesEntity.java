@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 @Builder
@@ -17,7 +19,7 @@ public class StudentStandardAndFeesEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer feeId;
     @Column(name="fee_amount")
-    private Integer feeAmount;
+    private Double feeAmount;
     @Column(name="standard_name")
     private String standardName;
 }

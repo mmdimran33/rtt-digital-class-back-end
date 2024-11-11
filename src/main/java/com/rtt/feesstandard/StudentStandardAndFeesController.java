@@ -28,20 +28,16 @@ public class StudentStandardAndFeesController {
                         RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
             }
         }
-// Fresh Changez
+// Fresh Changes
     @GetMapping("/get-student-fee-amount-by-standard-name")
-    public ResponseEntity<StudentStandardAndFeesServiceResponse> getFeeAmountByStandardName(
+    public StudentStandardAndFeesAmountServiceResponse getFeeAmountByStandardName(
             @RequestParam String standardName)  {
-
-        try {
             // Call the service method to get fee amount based on standard name
-            SuccessRegistrationResponse response = studentStandardAndFeesI.getFeeAmountByStandardName(standardName);
+            StudentStandardFeesAmountServiceResponse response = studentStandardAndFeesI.getFeeAmountByStandardName(standardName);
             // Return the response wrapped in a ResponseEntity
-            return ResponseEntity.ok(StudentStandardAndFeesServiceResponse.builder().successRegistrationResponse(response).build());
-        } catch (Exception e) {
-            throw new RegistrationException(RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
-                    RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
-        }
+            return StudentStandardAndFeesAmountServiceResponse.builder().studentStandardFeesAmountServiceResponse(response)
+                    .build();
+
     }
 
 }

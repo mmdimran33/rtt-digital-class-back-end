@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class StudentStandardAndFeesRequest {
 
    @JsonProperty("fee_amount")
-    private Integer feeAmount;
+    private Double feeAmount;
    @JsonProperty("standard_name")
     private String standardName;
 

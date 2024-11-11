@@ -6,6 +6,7 @@ import com.rtt.exception.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -55,29 +56,15 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
 
     //09-11 changes
     @Override
-    public SuccessRegistrationResponse getFeeAmountByStandardName(String standardName) {
-        try {
-            Optional<StudentStandardAndFeesEntity> standardAndFeesRecord = studentStandardAndFeesRepository.findByStandardName(standardName);
+    public StudentStandardFeesAmountServiceResponse getFeeAmountByStandardName(String standardName) {
+           // Double feeAmount= studentStandardAndFeesRepository.findFeesAmountByStandardName(standardName);
+            Optional<StudentStandardAndFeesEntity> studentStandardAndFeesEntity = studentStandardAndFeesRepository.findByStandardName(standardName);
+            StudentStandardAndFeesEntity standardAndFees;
 
-            if (standardAndFeesRecord.isPresent()) {
-                StudentStandardAndFeesEntity studentStandardAndFees = standardAndFeesRecord.get();
-                Integer standardFeeAmount = standardAndFeesRecord.get().getFeeAmount();
-                // Return a success response with the fee amount
-                return SuccessRegistrationResponse.builder()
-                        .responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
-                        .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION + standardFeeAmount)
-                        .build();
-            } else {
-                return SuccessRegistrationResponse.builder()
-                        .responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE)
-                        .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION)
-                        .build();
-            }
-        } catch (Exception e) {
-            throw new RegistrationException(
-                    RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
-                    RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION);
-        }
+                standardAndFees = studentStandardAndFeesEntity.get();
+
+        return StudentStandardFeesAmountServiceResponse.builder().studentFeeAmount(standardAndFees.getFeeAmount())
+                .build();
     }
 
 }

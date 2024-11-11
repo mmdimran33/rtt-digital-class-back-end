@@ -16,8 +16,8 @@ public interface StudentStandardAndFeesRepository extends JpaRepository<StudentS
     Optional<StudentStandardAndFeesEntity> findByStandardName(String standardName);
 
 //Fresh Changes
-    @Query("SELECT s.feeAmount FROM StudentStandardAndFeesEntity s WHERE s.standardName = :standardName")
-    BigDecimal findFeesAmountByStandardName(@Param("standardName") String standardName);
+    @Query(value = "SELECT f.fee_amount FROM fee f WHERE f.standard_name = :standardName", nativeQuery = true)
+    Double findFeesAmountByStandardName(@Param("standardName") String standardName);
 
 
 }
