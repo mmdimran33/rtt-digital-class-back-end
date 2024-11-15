@@ -3,6 +3,7 @@ package com.rtt.feesstandard;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
@@ -24,14 +25,22 @@ public class GeneratePdfService {
     @Autowired
     private StudentStandardAndFeesRepository studentStandardAndFeesRepository;
 
-    public byte[] generatePdfDoc(StudentStandardAndFeesEntity standardAndFees) {
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+    public Path generatePdfDoc(StudentStandardAndFeesEntity standardAndFees) {
+//        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream())
+        try{
             List<StudentStandardAndFeesEntity> existingRecord = studentStandardAndFeesRepository.findAll();
+
+            // Ensure we have data
+            if (existingRecord.isEmpty()) {
+                throw new RuntimeException("No records found to generate the PDF");
+            }
+
             // Define the local file path for saving the PDF
-            String filePath = "C:\\Users\\aquib\\OneDrive\\Desktop\\student_standard_fees.pdf";  // Specify your desired path here
+            String filePath = "D:\\pdf\\student_standard_fees.pdf";  // Specify your desired path here
             Path path = Paths.get(filePath);
+
             // Initialize PDF writer and document
-            PdfWriter writer = new PdfWriter(outputStream);
+            PdfWriter writer = new PdfWriter(filePath);
             PdfDocument pdfDocument = new PdfDocument(writer);
             Document document = new Document(pdfDocument);
 
@@ -64,12 +73,26 @@ public class GeneratePdfService {
                     .setFontColor(ColorConstants.BLUE)));
 
             document.add(table);  // Add table to document
+
+            // Drawing border around the page using PdfCanvas
+            PdfCanvas canvas = new PdfCanvas(pdfDocument.getFirstPage());
+            float margin = 20;  // margin around the page
+            float xStart = margin;
+            float yStart = margin;
+            float width = pdfDocument.getPage(1).getPageSize().getWidth() - (2 * margin);
+            float height = pdfDocument.getPage(1).getPageSize().getHeight() - (2 * margin);
+
+            canvas.setLineWidth(1f)
+                    .setStrokeColor(ColorConstants.BLACK)
+                    .rectangle(xStart, yStart, width, height)
+                    .stroke();  // Draw the border
+
             // Close the document to finalize PDF content
             document.close();
 
 
             // Return the generated PDF as a byte array
-            return outputStream.toByteArray();
+            return path;
         } catch (Exception e) {
             throw new RuntimeException("Error generating PDF", e);
         }

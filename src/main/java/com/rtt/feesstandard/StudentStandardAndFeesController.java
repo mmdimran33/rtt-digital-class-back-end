@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+
 @RestController
 @RequestMapping("/api/v1/standardandfees")
 public class StudentStandardAndFeesController {
@@ -53,13 +55,9 @@ public class StudentStandardAndFeesController {
 
 
     @PostMapping("/generate-pdf")
-    public ResponseEntity<byte[]> generatePdf(@RequestBody StudentStandardAndFeesEntity standardAndFees) {
-        byte[] pdfBytes = pdfService.generatePdfDoc(standardAndFees);
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=student_standard_fees.pdf")
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(pdfBytes);
+    public ResponseEntity<String> generatePdf(@RequestBody StudentStandardAndFeesEntity standardAndFees) {
+        Path pdfPath = pdfService.generatePdfDoc(standardAndFees);
+        return ResponseEntity.ok("PDF generated and saved at: " + pdfPath.toAbsolutePath().toString());
     }
 
 

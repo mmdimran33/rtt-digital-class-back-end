@@ -32,7 +32,6 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
 
             if (existingRecord.isPresent()) {
                 standardAndFees = existingRecord.get();
-//                generatePdfDoc(standardAndFees);
                 standardAndFees.setFeeAmount(studentStandardAndFeesRequest.getFeeAmount());
                 standardAndFees.setStandardName(studentStandardAndFeesRequest.getStandardName());
             } else {
@@ -76,26 +75,5 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
     public List<StudentStandardAndFeesEntity> getStandardAndFeesList() {
         return studentStandardAndFeesRepository.findAll();
     }
-//
-//    private byte[] generatePdfDoc(StudentStandardAndFeesEntity standardAndFees) {
-//        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-//            // Initialize PDF writer and document
-//            PdfWriter writer = new PdfWriter(outputStream);
-//            PdfDocument pdfDocument = new PdfDocument(writer);
-//            Document document = new Document(pdfDocument);
-//
-//            // Add content from standardAndFees to the PDF
-//            document.add(new Paragraph("Student Standard and Fees Details"));
-//            document.add(new Paragraph("Standard Name: " + standardAndFees.getStandardName()));
-//            document.add(new Paragraph("Fee Amount: "+standardAndFees.getFeeAmount()));
-//
-//            // Close the document to finalize PDF content
-//            document.close();
-//
-//            // Return the generated PDF as a byte array
-//            return outputStream.toByteArray();
-//        } catch (Exception e) {
-//            throw new RuntimeException("Error generating PDF", e);
-//        }
-//    }
+
 }
