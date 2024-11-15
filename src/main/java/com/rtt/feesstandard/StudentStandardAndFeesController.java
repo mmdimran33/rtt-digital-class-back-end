@@ -6,9 +6,12 @@ import com.rtt.exception.RegistrationException;
 import com.rtt.student.StudentRequest;
 import com.rtt.student.StudentServiceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
+import java.nio.file.Path;
 
 @RestController
 @RequestMapping("/api/v1/standardandfees")
@@ -16,6 +19,9 @@ public class StudentStandardAndFeesController {
 
     @Autowired
     private StudentStandardAndFeesI studentStandardAndFeesI;
+
+    @Autowired
+    private GeneratePdfService pdfService;
 
     @PostMapping("/add-fees")
     public ResponseEntity<StudentStandardAndFeesServiceResponse> addStandardFees(
@@ -30,6 +36,13 @@ public class StudentStandardAndFeesController {
             }
         }
 
+    @GetMapping("/standard-list")
+    public StudentStandardAndFeesListServiceResponse getStandardAndFeesList() {
+        //List<StudentStandardAndFeesEntity>studentStandardAndFeesList =  studentStandardAndFeesI.getStandardAndFeesList();
+        return StudentStandardAndFeesListServiceResponse.builder().
+                studentStandardAndFeesEntityList(studentStandardAndFeesI.getStandardAndFeesList()).build();
+    }
+
     @GetMapping("/get-student-fee-amount-by-standard-name")
     public StudentStandardAndFeesAmountServiceResponse getFeeAmountByStandardName(
             @RequestParam String standardName)  {
@@ -38,13 +51,16 @@ public class StudentStandardAndFeesController {
             // Return the response wrapped in a ResponseEntity
             return StudentStandardAndFeesAmountServiceResponse.builder().studentStandardFeesAmountServiceResponse(response)
                     .build();
-
-    @GetMapping("/standard-list")
-    public StudentStandardAndFeesListServiceResponse getStandardAndFeesList() {
-        //List<StudentStandardAndFeesEntity>studentStandardAndFeesList =  studentStandardAndFeesI.getStandardAndFeesList();
-        return StudentStandardAndFeesListServiceResponse.builder().
-                studentStandardAndFeesEntityList(studentStandardAndFeesI.getStandardAndFeesList()).build();
     }
 
-}
 
+    @PostMapping("/generate-pdf")
+    public ResponseEntity<String> generatePdf(@RequestBody StudentStandardAndFeesEntity standardAndFees) {
+        Path pdfPath = pdfService.generatePdfDoc(standardAndFees);
+        return ResponseEntity.ok("PDF generated and saved at: " + pdfPath.toAbsolutePath().toString());
+    }
+
+
+
+
+}

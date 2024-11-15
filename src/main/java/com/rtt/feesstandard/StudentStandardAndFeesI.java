@@ -7,7 +7,8 @@ import java.util.List;
 public interface StudentStandardAndFeesI {
     public SuccessRegistrationResponse addOrUpdateFees(StudentStandardAndFeesRequest studentStandardAndFeesRequest);
 
-    public StudentStandardFeesAmountServiceResponse getFeeAmountByStandardName(String standardName);
     public List<StudentStandardAndFeesEntity> getStandardAndFeesList();
 
+    // Method to fetch fee amount by standard name
+    public StudentStandardFeesAmountServiceResponse getFeeAmountByStandardName(String standardName);
 }

@@ -51,7 +51,7 @@ public class SecurityConfiguration {
             "/swagger-ui.html",
             "api/v1/customer/test",
             "api/v1/student/**",
-            "/api/v1/standardandfees/**",
+            "/api/v1/standardandfees/***",
             "/api/v1/teachers/**",
             "/api/v1/student/**",
             "/get-student-fee-amount-by-standard-name"};
