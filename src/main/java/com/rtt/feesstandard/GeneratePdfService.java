@@ -13,12 +13,9 @@ import com.itextpdf.layout.element.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GeneratePdfService {
@@ -26,7 +23,6 @@ public class GeneratePdfService {
     private StudentStandardAndFeesRepository studentStandardAndFeesRepository;
 
     public Path generatePdfDoc(StudentStandardAndFeesEntity standardAndFees) {
-//        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream())
         try{
             List<StudentStandardAndFeesEntity> existingRecord = studentStandardAndFeesRepository.findAll();
 
@@ -57,21 +53,17 @@ public class GeneratePdfService {
             table.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
             // Header Row
-            table.addHeaderCell(new Cell().add(new Paragraph("Field").setBold()).setBackgroundColor(ColorConstants.LIGHT_GRAY).setTextAlignment(TextAlignment.CENTER));
-            table.addHeaderCell(new Cell().add(new Paragraph("Value").setBold()).setBackgroundColor(ColorConstants.LIGHT_GRAY).setTextAlignment(TextAlignment.CENTER));
+            table.addHeaderCell(new Cell().add(new Paragraph("Standard Name").setBold()).setBackgroundColor(ColorConstants.LIGHT_GRAY).setTextAlignment(TextAlignment.CENTER))
+                    .addCell(new Cell().add(new Paragraph(String.valueOf(existingRecord.get(0).getStandardName()))
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setFontColor(ColorConstants.BLUE)));
 
+            table.addHeaderCell(new Cell().add(new Paragraph("Fee Amount").setBold()).setBackgroundColor(ColorConstants.LIGHT_GRAY).setTextAlignment(TextAlignment.CENTER))
+                    .addCell(new Cell().add(new Paragraph(String.valueOf(existingRecord.get(0).getFeeAmount()))
+                            .setTextAlignment(TextAlignment.CENTER)
+                            .setFontColor(ColorConstants.BLUE)));
 
             // Data Rows
-            table.addCell(new Cell().add(new Paragraph("Standard Name")).setTextAlignment(TextAlignment.CENTER));
-            table.addCell(new Cell().add(new Paragraph( existingRecord.get(0).getStandardName())
-                    .setTextAlignment(TextAlignment.CENTER)
-                    .setFontColor(ColorConstants.BLUE)));
-
-            table.addCell(new Cell().add(new Paragraph("Fee Amount")).setTextAlignment(TextAlignment.CENTER));
-            table.addCell(new Cell().add(new Paragraph(String.valueOf(existingRecord.get(0).getFeeAmount()))
-                    .setTextAlignment(TextAlignment.CENTER)
-                    .setFontColor(ColorConstants.BLUE)));
-
             document.add(table);  // Add table to document
 
             // Drawing border around the page using PdfCanvas
@@ -90,7 +82,7 @@ public class GeneratePdfService {
             // Close the document to finalize PDF content
             document.close();
 
-
+            
             // Return the generated PDF as a byte array
             return path;
         } catch (Exception e) {
