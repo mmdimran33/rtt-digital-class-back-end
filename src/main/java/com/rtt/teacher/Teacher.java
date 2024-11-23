@@ -1,5 +1,6 @@
 package com.rtt.teacher;
 
+import com.rtt.subject.Subject;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Blob;
+import java.util.Set;
 
 @Builder
 @Data
@@ -37,8 +39,11 @@ public class Teacher {
     @Column(name="teacher_Qualification")
     private String teacherQualification;
 
-
-
-
-
+//    @ManyToMany
+//    @JoinTable(
+//            name = "Teacher_Subject",
+//            joinColumns = @JoinColumn(name = "teacher_Id"),
+//            inverseJoinColumns = @JoinColumn(name = "subject_Id")
+//    )
+//    private Set<Subject> subjects; // A teacher can teach multiple subjects
 }
