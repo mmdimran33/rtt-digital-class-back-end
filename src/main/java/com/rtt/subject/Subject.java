@@ -20,12 +20,14 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="subject_Id")
     private Integer subjectId;
+
     @Column(name="subject_Name")
-    private  String subjectName;
+    private String subjectName;
+
     @Column(name="subject_desc")
     private String subjectDescription;
-//
-//    @ManyToMany(mappedBy = "subjects")
-//    private Set<Teacher> teachers; // A subject can be taught by multiple teachers
 
+    @ManyToMany(mappedBy = "subjects")
+    private Set<Teacher> teachers; // A subject can be taught by multiple teachers
 }
+
