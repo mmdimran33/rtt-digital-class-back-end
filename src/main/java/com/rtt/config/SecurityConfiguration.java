@@ -50,10 +50,13 @@ public class SecurityConfiguration {
             "/webjars/**",
             "/swagger-ui.html",
             "api/v1/customer/test",
-            "/api/v1/auth/**",
             "api/v1/student/**",
-            "/api/v1/standardandfees/**",
-            "/api/v1/teachers/**"};
+            "/api/v1/standardandfees/***",
+            "/api/v1/teachers/**",
+            "/api/v1/student/**",
+            "/get-student-fee-amount-by-standard-name",
+            "/api/v1/subjects/*",
+             "/api/v1/teachers/add-teacher"};
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http

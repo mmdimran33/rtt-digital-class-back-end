@@ -8,4 +8,7 @@ public interface StudentStandardAndFeesI {
     public SuccessRegistrationResponse addOrUpdateFees(StudentStandardAndFeesRequest studentStandardAndFeesRequest);
 
     public List<StudentStandardAndFeesEntity> getStandardAndFeesList();
+
+    // Method to fetch fee amount by standard name
+    public StudentStandardFeesAmountServiceResponse getFeeAmountByStandardName(String standardName);
 }
