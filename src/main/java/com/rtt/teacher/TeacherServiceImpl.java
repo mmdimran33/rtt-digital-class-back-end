@@ -3,7 +3,6 @@ package com.rtt.teacher;
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
-import com.rtt.subject.Subject;
 import com.rtt.teacher.SuccessTeacherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,6 @@ public class TeacherServiceImpl implements TeacherI{
                     .build();
 
             // Save the teacher entity
-//            var subject = Subject.builder().subjectId(teacher.getTeacherId())
             Teacher savedTeacher = repository.save(teacher);
 
             // Check if the teacher ID was generated and return success response
