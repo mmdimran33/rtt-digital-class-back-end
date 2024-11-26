@@ -4,9 +4,10 @@ import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
 import com.rtt.feesstandard.StudentStandard;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentI {
@@ -53,4 +54,12 @@ public class StudentServiceImpl implements StudentI {
         }
     return null;
     }
+
+
+    @Override
+    public List<StudentEntity> getAllStudents() {
+        // Fetch all student records from the repository
+        return repository.findAll();
+    }
+
 }
