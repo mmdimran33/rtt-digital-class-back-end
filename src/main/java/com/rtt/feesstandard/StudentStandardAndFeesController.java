@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.file.Path;
 import java.util.Map;
 
+@CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/standardandfees")
 public class StudentStandardAndFeesController {
