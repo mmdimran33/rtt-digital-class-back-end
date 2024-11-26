@@ -13,13 +13,18 @@ import com.itextpdf.layout.element.Paragraph;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFeesI {
 
     @Autowired
     private StudentStandardAndFeesRepository studentStandardAndFeesRepository;
+
+    @Autowired
+    private StudentStandardMRepository repository;
 
     @Override
     public SuccessRegistrationResponse addOrUpdateFees(StudentStandardAndFeesRequest studentStandardAndFeesRequest) {
@@ -75,5 +80,18 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
     public List<StudentStandardAndFeesEntity> getStandardAndFeesList() {
         return studentStandardAndFeesRepository.findAll();
     }
+
+    @Override
+    public Map<Integer, String> getStandardNameList() {
+        // Fetch the standard-master data from the repository
+        List<Object[]> repo = repository.getStandardNameList();
+        // Map the results to a Map<Integer, String>
+        return repo.stream()
+                .collect(Collectors.toMap(
+                        row -> (Integer) row[1],    // subjectId (row[1])
+                        row -> (String) row[0]      // subjectName (row[0])
+                ));
+    }
+
 
 }

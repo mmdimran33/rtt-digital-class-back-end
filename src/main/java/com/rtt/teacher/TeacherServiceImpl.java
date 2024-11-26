@@ -3,12 +3,20 @@ package com.rtt.teacher;
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
+import com.rtt.subject.Subject;
+import com.rtt.subject.SubjectRepository;
 import com.rtt.teacher.SuccessTeacherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class TeacherServiceImpl implements TeacherI{
+
+    @Autowired
+    private SubjectRepository subjectRepository;
 
     @Autowired
     private TeacherRepository repository;
@@ -17,15 +25,19 @@ public class TeacherServiceImpl implements TeacherI{
     public SuccessTeacherResponse createTeacher(TeacherRequest teacherRequest) {
 
         try {
+            //Fetch subjects from the database
+            Set<Subject> subjects=new HashSet<>(subjectRepository.findAllById(teacherRequest.getSubjectId()));
+
             // Build the Teacher entity from the request
             var teacher = Teacher.builder()
                     .teacherName(teacherRequest.getTeacherName())
-                    .Subject(teacherRequest.getSubject())
+                    .subject(teacherRequest.getSubject())
                     .phoneNo(teacherRequest.getPhoneNo())
-                    .AadharNo(teacherRequest.getAadharNo())
+                    .aadharNo(teacherRequest.getAadharNo())
                     .salary(teacherRequest.getSalary())
                     .mailId(teacherRequest.getMailId())
                     .teacherQualification(teacherRequest.getTeacherQualification())
+                    .subjects(subjects) //Associate subjects with teacher
                     //.teacherPhoto(teacherRequest.getTeacherPhoto())
                     .build();
 
