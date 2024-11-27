@@ -40,11 +40,23 @@ public class StudentEntity {
     private String address;
     @Column(name = "registration_date")
     private LocalDate registrationDate;
+    //New Column Added
+    @Column(name = "Total_fee_amount")
+    private  Float TotalfeeAmount;
+    @Column(name = "discount_in_percentages")
+    private  Float discountInPercentages;
+    @Column(name = "payment_method")
+    private  Float paymentMethod;
+    @Column(name = "paid_amount")
+    private  Float paidAmount;
+    @Column(name = "balance_amount")
+    private  Float balanceAmount;
+
 
     // One-to-One bi-directional relationship flow from StudentStandard to StudentEntity
-    @OneToOne(mappedBy = "studentEntity", cascade = CascadeType.ALL)
-    private StudentStandard studentStandard;
-
+//    @OneToOne(mappedBy = "studentEntity", cascade = CascadeType.ALL)
+//    private StudentStandard studentStandard;
+//
 
 
 }
