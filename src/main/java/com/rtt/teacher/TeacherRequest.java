@@ -15,8 +15,8 @@ public class TeacherRequest {
     @JsonProperty("teacher_name")
     private String teacherName;
 
-   /* @JsonProperty("subject")
-    private String subject;*/
+    @JsonProperty("subject")
+    private String subject;
 
     @JsonProperty("phone_no")
     private long phoneNo;
@@ -30,8 +30,8 @@ public class TeacherRequest {
     @JsonProperty("mail_id")
     private String mailId;
 
-    @JsonProperty("teacher_photo")
-    private Blob teacherPhoto;
+//    @JsonProperty("teacher_photo")
+//    private Blob teacherPhoto;
 
     @JsonProperty("teacher_qualification")
     private String teacherQualification;

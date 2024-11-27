@@ -5,6 +5,7 @@ import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
 import com.rtt.student.StudentRequest;
 import com.rtt.student.StudentServiceResponse;
+import com.rtt.subject.SubjectServiceListReponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.Path;
+import java.util.Map;
 
+@CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/standardandfees")
 public class StudentStandardAndFeesController {
@@ -62,5 +65,10 @@ public class StudentStandardAndFeesController {
 
 
 
+    @GetMapping("/standard_master_list")
+    public StudentStandardMListResponse getStandardNameList() {
+        Map<Integer, String> standardMasterMap = studentStandardAndFeesI.getStandardNameList();
+        return StudentStandardMListResponse.builder().studentStandardMListResponse(standardMasterMap).build();
+    }
 
 }
