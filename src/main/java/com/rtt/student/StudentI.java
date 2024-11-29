@@ -9,7 +9,9 @@ public interface StudentI {
     public SuccessRegistrationResponse createStudent(StudentRequest studentRequest );
 
     // Method to fetch all students
+
     List<StudentEntity> getAllStudents();
 
     public TotalRecoveredResponse getTotalRecoveredAmount();
+    public StudentCountResponse getTotalNoOfStudent();
 }

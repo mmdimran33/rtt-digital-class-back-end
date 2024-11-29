@@ -73,6 +73,11 @@ public class StudentServiceImpl implements StudentI {
         return repository.findAll();
     }
 
+    @Override
+    public Integer TotalNoOfStudent() {
+        return repository.getTotalNumberOfStudents();
+    }
+
 
 /*
     private Path generateStudentRegistrationInvoice(StudentEntity student){
