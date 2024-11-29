@@ -1,24 +1,11 @@
 package com.rtt.student;
 
-import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.properties.HorizontalAlignment;
-import com.itextpdf.layout.properties.TextAlignment;
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
-import com.rtt.feesstandard.StudentStandard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -79,6 +66,15 @@ public class StudentServiceImpl implements StudentI {
         // Fetch all student records from the repository
         return repository.findAll();
     }
+
+    @Override
+    public Integer TotalNoOfStudent() {
+        return repository.getTotalNumberOfStudents();
+    }
+
+
+
+
 /*
     private Path generateStudentRegistrationInvoice(StudentEntity student){
         ///List<StudentEntity> existingRecord=repository.findAll();

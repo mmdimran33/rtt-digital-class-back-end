@@ -17,3 +17,4 @@ public class StudentServiceResponse {
     @JsonProperty("student_registration_response")
     private SuccessRegistrationResponse successRegistrationResponse;
 }
+
