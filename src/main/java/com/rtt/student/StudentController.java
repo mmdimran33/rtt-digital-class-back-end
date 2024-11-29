@@ -37,6 +37,12 @@ public class StudentController {
         List<StudentEntity> students = studentService.getAllStudents();
         return ResponseEntity.ok(students);
     }
+    @GetMapping("/get-total-recovered-amount")
+    public ResponseEntity<TotalRecoveredServiceResponse> getTotalRecoveredAmount(){
+        //Fetch All Students Recovered Amounts and return response
+        TotalRecoveredResponse totalRecoveredResponse = studentService.getTotalRecoveredAmount();
+        return ResponseEntity.ok(TotalRecoveredServiceResponse.builder().totalRecoveredResponse(totalRecoveredResponse).build());
+    }
 
      // Fetch total no. of students return response
     @GetMapping("/get-total-number-of-student")

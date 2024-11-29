@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity,Integer> {
+    //Fetching Recovered Amount of Students from Student Table
+   @Query(value = "select sum(paid_amount) from student",nativeQuery = true)
+    Float calculateTotalRecoveredAmount();
 
     @Query(value = "SELECT COUNT(student_id) FROM student", nativeQuery = true)
     Integer getTotalNumberOfStudents();

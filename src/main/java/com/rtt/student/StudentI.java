@@ -12,5 +12,6 @@ public interface StudentI {
 
     List<StudentEntity> getAllStudents();
 
+    public TotalRecoveredResponse getTotalRecoveredAmount();
     public StudentCountResponse getTotalNoOfStudent();
 }

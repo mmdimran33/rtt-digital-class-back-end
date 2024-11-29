@@ -11,6 +11,12 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentI {
 
+    @Override
+    public TotalRecoveredResponse getTotalRecoveredAmount() {
+        Float totalRecoveredAmount = repository.calculateTotalRecoveredAmount();
+        return TotalRecoveredResponse.builder().paidAmount(totalRecoveredAmount).build();
+    }
+
     @Autowired
     private StudentRepository repository;
 
@@ -71,8 +77,6 @@ public class StudentServiceImpl implements StudentI {
     public Integer TotalNoOfStudent() {
         return repository.getTotalNumberOfStudents();
     }
-
-
 
 
 /*
