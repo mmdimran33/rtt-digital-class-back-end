@@ -42,7 +42,7 @@ public class StudentRequest {
     private LocalDate registrationDate;
     //New Request Added
     @JsonProperty("total_fee_amount")
-    private  Float TotalfeeAmount;
+    private  Float totalFeeAmount;
     @JsonProperty("discount_in_percentages")
     private  Float discountInPercentages;
     @JsonProperty("payment_method")

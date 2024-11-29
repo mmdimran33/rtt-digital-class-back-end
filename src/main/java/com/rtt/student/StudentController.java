@@ -1,15 +1,14 @@
 package com.rtt.student;
 
-import com.rtt.auth.RegisterRequest;
-import com.rtt.auth.RegistrationResponse;
-import com.rtt.auth.RegistrationServiceResponse;
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @CrossOrigin(value = "http://localhost:3000")
@@ -37,6 +36,14 @@ public class StudentController {
         // Fetch all students and return the response
         List<StudentEntity> students = studentService.getAllStudents();
         return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/get-total-earning-of-students")
+    public ResponseEntity<TotalEarningServiceResponse> getTotalFeeAmount() {
+        // Fetch total earning of students and return the response
+        TotalEarningResponse totalEarningResponse = studentService.getTotalFeeAmount();
+        return ResponseEntity.ok(TotalEarningServiceResponse.builder()
+                .totalEarningResponse(totalEarningResponse).build());
     }
 
 

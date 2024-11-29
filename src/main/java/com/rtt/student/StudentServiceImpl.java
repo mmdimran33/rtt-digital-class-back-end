@@ -1,26 +1,15 @@
 package com.rtt.student;
 
-import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.properties.HorizontalAlignment;
-import com.itextpdf.layout.properties.TextAlignment;
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
-import com.rtt.feesstandard.StudentStandard;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
+@Slf4j
 @Service
 public class StudentServiceImpl implements StudentI {
 
@@ -46,7 +35,7 @@ public class StudentServiceImpl implements StudentI {
                     .gaurdianPhoneNo(studentRequest.getGaurdianPhoneNo())
                     .address(studentRequest.getAddress())
                     .registrationDate(studentRequest.getRegistrationDate())
-                    .TotalfeeAmount(studentRequest.getTotalfeeAmount())
+                    .totalFeeAmount(studentRequest.getTotalFeeAmount())
                     .paidAmount(studentRequest.getPaidAmount())
                     .paymentMethod(studentRequest.getPaymentMethod())
                     .discountInPercentages(studentRequest.getDiscountInPercentages())
@@ -62,16 +51,16 @@ public class StudentServiceImpl implements StudentI {
             StudentEntity savedStudent = repository.save(student);
 
             if (savedStudent.getStudentId() != null) {
-               // generateStudentRegistrationInvoice(savedStudent);
-           return SuccessRegistrationResponse.builder().responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
+                // generateStudentRegistrationInvoice(savedStudent);
+                return SuccessRegistrationResponse.builder().responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
                         .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION).build();
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RegistrationException(RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
                     RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
         }
-    return null;
+        return null;
     }
 
     @Override
@@ -79,6 +68,15 @@ public class StudentServiceImpl implements StudentI {
         // Fetch all student records from the repository
         return repository.findAll();
     }
+
+    @Override
+    public TotalEarningResponse getTotalFeeAmount() {
+        // Fetch total earning of students from the repository
+        Float totalEarningAmount = repository.calculateTotalEarningAmount();
+        return TotalEarningResponse.builder().totalFeeAmount(totalEarningAmount).build();
+    }
+
+
 /*
     private Path generateStudentRegistrationInvoice(StudentEntity student){
         ///List<StudentEntity> existingRecord=repository.findAll();

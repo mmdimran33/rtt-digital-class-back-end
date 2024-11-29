@@ -10,4 +10,7 @@ public interface StudentI {
 
     // Method to fetch all students
     List<StudentEntity> getAllStudents();
+    // Method to fetch all students total earning
+    public TotalEarningResponse getTotalFeeAmount();
+
 }
