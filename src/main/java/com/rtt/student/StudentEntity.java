@@ -4,6 +4,7 @@ import com.rtt.feesstandard.StudentStandard;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Builder
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="student")
+@Table(name = "student")
 public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,16 +42,16 @@ public class StudentEntity {
     @Column(name = "registration_date")
     private LocalDate registrationDate;
     //New Column Added
-    @Column(name = "Total_fee_amount")
-    private  Float TotalfeeAmount;
+    @Column(name = "total_fee_amount")
+    private Float totalFeeAmount;
     @Column(name = "discount_in_percentages")
-    private  Float discountInPercentages;
+    private Float discountInPercentages;
     @Column(name = "payment_method")
-    private  Float paymentMethod;
+    private Float paymentMethod;
     @Column(name = "paid_amount")
-    private  Float paidAmount;
+    private Float paidAmount;
     @Column(name = "balance_amount")
-    private  Float balanceAmount;
+    private Float balanceAmount;
 
 
     // One-to-One bi-directional relationship flow from StudentStandard to StudentEntity
