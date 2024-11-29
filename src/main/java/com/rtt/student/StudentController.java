@@ -7,6 +7,7 @@ import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,13 @@ public class StudentController {
         // Fetch all students and return the response
         List<StudentEntity> students = studentService.getAllStudents();
         return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/get-total-recovered-amount")
+    public ResponseEntity<TotalRecoveredServiceResponse> getTotalRecoveredAmount(){
+        //Fetch All Students Recovered Amounts and return response
+        TotalRecoveredResponse totalRecoveredResponse = studentService.getTotalRecoveredAmount();
+        return ResponseEntity.ok(TotalRecoveredServiceResponse.builder().totalRecoveredResponse(totalRecoveredResponse).build());
     }
 
 
