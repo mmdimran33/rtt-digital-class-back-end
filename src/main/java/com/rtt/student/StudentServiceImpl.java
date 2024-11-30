@@ -14,15 +14,8 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentI {
 
-    @Override
-    public TotalRecoveredResponse getTotalRecoveredAmount() {
-        Float totalRecoveredAmount = repository.calculateTotalRecoveredAmount();
-        return TotalRecoveredResponse.builder().paidAmount(totalRecoveredAmount).build();
-    }
-
     @Autowired
     private StudentRepository repository;
-
 
     @Override
     public SuccessRegistrationResponse createStudent(StudentRequest studentRequest) {
@@ -77,13 +70,26 @@ public class StudentServiceImpl implements StudentI {
     }
 
     @Override
+    public TotalRecoveredResponse getTotalRecoveredAmount() {
+        Float totalRecoveredAmount = repository.calculateTotalRecoveredAmount();
+        return TotalRecoveredResponse.builder().paidAmount(totalRecoveredAmount).build();
+    }
+
+    @Override
+    public StudentCountResponse getTotalNoOfStudent() {
+        Integer totalNumberOfStudent = repository.getTotalNumberOfStudents();
+        return StudentCountResponse.builder().totalNoOfStudents(totalNumberOfStudent).build();
+
+    }
+
+
+    @Override
     public TotalEarningResponse getTotalFeeAmount() {
         // Fetch total earning of students from the repository
         Float totalEarningAmount = repository.calculateTotalEarningAmount();
-        return TotalEarningResponse.builder().totalFeeAmount(totalEarningAmount).build();
-    public Integer TotalNoOfStudent() {
-        return repository.getTotalNumberOfStudents();
-    }
+        return TotalEarningResponse.builder().totalEarningAmount(totalEarningAmount).build();
+
+
 
 
 /*
@@ -175,5 +181,5 @@ public class StudentServiceImpl implements StudentI {
     }
 
 */
-
+    }
 }

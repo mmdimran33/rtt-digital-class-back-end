@@ -8,6 +8,6 @@ import lombok.ToString;
 @Builder
 public class TotalEarningServiceResponse {
     private static final long serialVersionUID = 1L;
-    @JsonProperty("total_earning_of_students")
+    @JsonProperty("total_earning_students_status")
     private TotalEarningResponse totalEarningResponse;
 }

@@ -8,6 +8,6 @@ import lombok.*;
 @Builder
 public class TotalEarningResponse {
     private static final long serialVersionUID=1L;
-    @JsonProperty("total_earning_of_students")
-    private Float balanceAmount;
+    @JsonProperty("total_earning_students")
+    private Float totalEarningAmount;
 }

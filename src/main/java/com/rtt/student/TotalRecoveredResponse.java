@@ -11,6 +11,6 @@ import lombok.*;
 public class TotalRecoveredResponse {
    // private float total_recovered_amount_of_students;
     private static final long serialVersionUID = 1L;
-   @JsonProperty("total_recovered_amount_of _the_students")
+   @JsonProperty("total_recovered_amount")
    private Float paidAmount;
 }
