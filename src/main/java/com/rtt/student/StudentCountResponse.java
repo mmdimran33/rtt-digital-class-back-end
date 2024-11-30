@@ -6,8 +6,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentCountResponse {
+
     private static final long serialVersionUID=1L;
-    @JsonProperty("total_number_of_students")
+
+    @JsonProperty("total_number_student")
     private Integer totalNoOfStudents;
 
 
