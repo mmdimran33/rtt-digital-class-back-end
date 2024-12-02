@@ -82,12 +82,20 @@ public class StudentServiceImpl implements StudentI {
 
     }
 
+    @Override
+    public TotalPendingResponse getTotalPendingAmount() {
+        //Fetch pending Amount of the Student from repository
+        Float totalPendingAmount= repository.calculateTotalPendingAmount();
+        return TotalPendingResponse.builder().balanceAmount(totalPendingAmount).build();
+    }
+
 
     @Override
     public TotalEarningResponse getTotalFeeAmount() {
         // Fetch total earning of students from the repository
         Float totalEarningAmount = repository.calculateTotalEarningAmount();
         return TotalEarningResponse.builder().totalEarningAmount(totalEarningAmount).build();
+    }
 
 
 
@@ -182,4 +190,4 @@ public class StudentServiceImpl implements StudentI {
 
 */
     }
-}
+

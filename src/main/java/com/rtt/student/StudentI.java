@@ -15,4 +15,5 @@ public interface StudentI {
     public TotalEarningResponse getTotalFeeAmount();
     public TotalRecoveredResponse getTotalRecoveredAmount();
     public StudentCountResponse getTotalNoOfStudent();
+    public TotalPendingResponse getTotalPendingAmount();
 }
