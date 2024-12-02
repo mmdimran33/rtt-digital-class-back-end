@@ -62,4 +62,9 @@ public class StudentController {
                 .builder().studentCountResponse(totalNoOfStudents).build());
 
     }
+    @GetMapping("/get-total-pending-amount")
+    public ResponseEntity<TotalPendingServiceResponse> getTotalPendingAmount(){
+        TotalPendingResponse totalPendingResponse=studentService.getTotalPendingAmount();
+        return ResponseEntity.ok(TotalPendingServiceResponse.builder().totalPendingResponse(totalPendingResponse).build());
+    }
 }
