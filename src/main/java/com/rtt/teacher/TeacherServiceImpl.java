@@ -16,45 +16,42 @@ import java.util.Set;
 public class TeacherServiceImpl implements TeacherI{
 
     @Autowired
-    private TeacherRepository teacherRepository;
+    private SubjectRepository subjectRepository;
 
     @Autowired
-    private SubjectRepository subjectRepository; // Assume this repository exists for Subject
-
-
+    private TeacherRepository repository;
 
     @Override
     public SuccessTeacherResponse createTeacher(TeacherRequest teacherRequest) {
 
         try {
-            // Fetch subjects from the database
-            Set<Subject> subjects = new HashSet<>( subjectRepository.findAllById(teacherRequest.getSubjectId()));
+            //Fetch subjects from the database
+            Set<Subject> subjects=new HashSet<>(subjectRepository.findAllById(teacherRequest.getSubjectId()));
 
             // Build the Teacher entity from the request
             var teacher = Teacher.builder()
                     .teacherName(teacherRequest.getTeacherName())
+                    .subject(teacherRequest.getSubject())
                     .phoneNo(teacherRequest.getPhoneNo())
                     .aadharNo(teacherRequest.getAadharNo())
                     .salary(teacherRequest.getSalary())
                     .mailId(teacherRequest.getMailId())
                     .teacherQualification(teacherRequest.getTeacherQualification())
-                    .subjects(subjects) // Associate subjects with teacher
+                    .subjects(subjects) //Associate subjects with teacher
+                    //.teacherPhoto(teacherRequest.getTeacherPhoto())
                     .build();
 
             // Save the teacher entity
-            Teacher savedTeacher = teacherRepository.save(teacher);
+            Teacher savedTeacher = repository.save(teacher);
 
             // Check if the teacher ID was generated and return success response
             if (savedTeacher.getTeacherId() != null) {
-                return SuccessTeacherResponse.builder()
-                        .responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
-                        .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION)
-                        .build();
+                return SuccessTeacherResponse.builder().responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
+                        .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION).build();
             }
 
-        } catch (Exception e) {
-            throw new RegistrationException(
-                    RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
+        }catch (Exception e){
+            throw new RegistrationException(RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
                     RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
         }
         return null;

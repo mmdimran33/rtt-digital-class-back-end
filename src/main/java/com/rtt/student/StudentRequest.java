@@ -1,6 +1,7 @@
 package com.rtt.student;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,4 +40,16 @@ public class StudentRequest {
     private String address;
     @JsonProperty("registration_date")
     private LocalDate registrationDate;
+    //New Request Added
+    @JsonProperty("total_fee_amount")
+    private  Float totalFeeAmount;
+    @JsonProperty("discount_in_percentages")
+    private  Float discountInPercentages;
+    @JsonProperty("payment_method")
+    private  Float paymentMethod;
+    @JsonProperty("paid_amount")
+    private  Float paidAmount;
+    @JsonProperty("balance_amount")
+    private  Float balanceAmount;
+
 }

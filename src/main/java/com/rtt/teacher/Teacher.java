@@ -24,8 +24,8 @@ public class Teacher {
     @Column(name="teacher_Name")
     private String teacherName;
 
-   /* @Column(name="teacher_Subject")
-    private String subject;*/
+    @Column(name="teacher_Subject")
+    private String subject;
 
     @Column(name="phone_No")
     private long phoneNo;
