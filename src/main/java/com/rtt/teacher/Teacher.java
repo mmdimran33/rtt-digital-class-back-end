@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Blob;
 import java.util.Set;
 
 @Builder
@@ -31,7 +30,7 @@ public class Teacher {
     @Column(name="phone_No")
     private long phoneNo;
 
-    @Column(name="Aadhar_No")
+    @Column(name="aadhar_No")
     private long aadharNo;
 
     @Column(name="teacher_Salary")
@@ -42,6 +41,14 @@ public class Teacher {
 
     @Column(name="teacher_Qualification")
     private String teacherQualification;
+
+    @Column(name="about_teacher" , columnDefinition = "TEXT")
+    private String aboutTeacher;
+
+    @Lob // Specifies that the field is a large object
+    @Column(name = "teacher_photo", columnDefinition = "BLOB")
+    private byte[] teacher_photo;
+
 
     @ManyToMany
     @JoinTable(
