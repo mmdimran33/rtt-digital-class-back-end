@@ -47,7 +47,7 @@ public class StudentEntity {
     @Column(name = "discount_in_percentages")
     private Float discountInPercentages;
     @Column(name = "payment_method")
-    private Float paymentMethod;
+    private String paymentMethod;
     @Column(name = "paid_amount")
     private Float paidAmount;
     @Column(name = "balance_amount")
