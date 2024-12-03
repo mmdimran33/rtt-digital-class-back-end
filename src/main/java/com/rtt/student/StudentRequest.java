@@ -46,7 +46,7 @@ public class StudentRequest {
     @JsonProperty("discount_in_percentages")
     private  Float discountInPercentages;
     @JsonProperty("payment_method")
-    private  Float paymentMethod;
+    private  String paymentMethod;
     @JsonProperty("paid_amount")
     private  Float paidAmount;
     @JsonProperty("balance_amount")
