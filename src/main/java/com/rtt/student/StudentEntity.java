@@ -3,6 +3,7 @@ package com.rtt.student;
 import com.rtt.feesstandard.StudentStandard;
 import jakarta.persistence.*;
 import lombok.*;
+import java.sql.Timestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -52,6 +53,12 @@ public class StudentEntity {
     private Float paidAmount;
     @Column(name = "balance_amount")
     private Float balanceAmount;
+    @Column(name = "created_date")
+    private  Timestamp createdDate;
+    @Column(name = "updated_date")
+    private  Timestamp updatedDate;
+
+
 
 
     // One-to-One bi-directional relationship flow from StudentStandard to StudentEntity
