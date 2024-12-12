@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -85,8 +86,24 @@ public class StudentServiceImpl implements StudentI {
     @Override
     public TotalPendingResponse getTotalPendingAmount() {
         //Fetch pending Amount of the Student from repository
-        Float totalPendingAmount= repository.calculateTotalPendingAmount();
+        Float totalPendingAmount = repository.calculateTotalPendingAmount();
         return TotalPendingResponse.builder().balanceAmount(totalPendingAmount).build();
+    }
+
+    @Override
+    public List<Object[]> getStandardListByStandardWise(String standardName) {
+        // Fetch the list of standard-wise details from the repository
+        List<Object[]> standardList = repository.findStandardListByStandardWise(standardName);
+
+        // Log the first element for debugging purposes (ensure the list is not empty)
+        if (!standardList.isEmpty()) {
+            System.out.println("First record: " + Arrays.toString(standardList.get(0)));
+        } else {
+            System.out.println("No records found for the given standard: " + standardName);
+        }
+
+        // Return the fetched list
+        return standardList;
     }
 
 
@@ -96,7 +113,7 @@ public class StudentServiceImpl implements StudentI {
         Float totalEarningAmount = repository.calculateTotalEarningAmount();
         return TotalEarningResponse.builder().totalEarningAmount(totalEarningAmount).build();
     }
-
+}
 
 
 
@@ -189,5 +206,5 @@ public class StudentServiceImpl implements StudentI {
     }
 
 */
-    }
+
 

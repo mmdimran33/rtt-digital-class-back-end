@@ -2,7 +2,10 @@ package com.rtt.student;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity,Integer> {
@@ -21,4 +24,6 @@ public interface StudentRepository extends JpaRepository<StudentEntity,Integer> 
     Float calculateTotalPendingAmount();
 
 
+    @Query(value = "SELECT email_id,address,first_name,last_name,standard_name from student WHERE standard_name=:standardName", nativeQuery = true)
+    List<Object[]> findStandardListByStandardWise(@Param("standardName") String standardName);
 }

@@ -16,4 +16,5 @@ public interface StudentI {
     public TotalRecoveredResponse getTotalRecoveredAmount();
     public StudentCountResponse getTotalNoOfStudent();
     public TotalPendingResponse getTotalPendingAmount();
+    public List<Object[]> getStandardListByStandardWise(String standardName);
 }

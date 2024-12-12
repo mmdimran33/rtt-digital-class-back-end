@@ -67,4 +67,16 @@ public class StudentController {
         TotalPendingResponse totalPendingResponse=studentService.getTotalPendingAmount();
         return ResponseEntity.ok(TotalPendingServiceResponse.builder().totalPendingResponse(totalPendingResponse).build());
     }
+    @GetMapping("/get-standard-list-by-standard-name")
+    public ResponseEntity<StudentListResponse> getStandardListByStandardWise(@RequestParam String standardName) {
+        // Fetch the list of students based on the standard
+        List<Object[]> standardList =  studentService.getStandardListByStandardWise(standardName);
+      if (standardList.isEmpty()) {
+          // Build and return the response
+          return ResponseEntity.noContent().build();
+      }
+                          // Use standardName instead of studentListResponse
+
+          return ResponseEntity.ok(StudentListResponse.builder().StandardList(standardList).build());
+    }
 }
