@@ -23,7 +23,7 @@ public interface StudentRepository extends JpaRepository<StudentEntity,Integer> 
     @Query(value = "SELECT SUM(total_fee_amount) - SUM(paid_amount) AS pending_amount FROM student", nativeQuery = true)
     Float calculateTotalPendingAmount();
 
-
     @Query(value = "SELECT email_id,address,first_name,last_name,standard_name from student WHERE standard_name=:standardName", nativeQuery = true)
     List<Object[]> findStandardListByStandardWise(@Param("standardName") String standardName);
+
 }

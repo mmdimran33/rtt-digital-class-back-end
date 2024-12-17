@@ -67,6 +67,7 @@ public class StudentController {
         TotalPendingResponse totalPendingResponse=studentService.getTotalPendingAmount();
         return ResponseEntity.ok(TotalPendingServiceResponse.builder().totalPendingResponse(totalPendingResponse).build());
     }
+
     @GetMapping("/get-standard-list-by-standard-name")
     public ResponseEntity<StudentListResponse> getStandardListByStandardWise(@RequestParam String standardName) {
         // Fetch the list of students based on the standard
@@ -79,4 +80,11 @@ public class StudentController {
 
           return ResponseEntity.ok(StudentListResponse.builder().StandardList(standardList).build());
     }
+
+    @PutMapping("/{studentId}")
+    public ResponseEntity<StudentUpdateServiceResponse> updateStudent(@PathVariable Integer studentId,@RequestBody StudentRequest studentRequest) {
+        StudentUpdateServiceResponse response = studentService.getUpdateStudentById(studentId, studentRequest);
+        return ResponseEntity.ok(response);
+    }
+
 }
