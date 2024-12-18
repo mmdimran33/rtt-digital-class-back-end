@@ -81,7 +81,7 @@ public class StudentController {
           return ResponseEntity.ok(StudentListResponse.builder().StandardList(standardList).build());
     }
 
-    @PutMapping("/{studentId}")
+    @PutMapping("/updateStudent/{studentId}")
     public ResponseEntity<StudentUpdateServiceResponse> updateStudent(@PathVariable Integer studentId,@RequestBody StudentRequest studentRequest) {
         StudentUpdateServiceResponse response = studentService.getUpdateStudentById(studentId, studentRequest);
         return ResponseEntity.ok(response);
