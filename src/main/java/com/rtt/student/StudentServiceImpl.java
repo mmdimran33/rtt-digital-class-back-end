@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -105,6 +106,37 @@ public class StudentServiceImpl implements StudentI {
         // Return the fetched list
         return standardList;
     }
+
+    @Override
+    public StudentUpdateServiceResponse getUpdateStudentById(Integer studentId, StudentRequest updatedStudent) {
+        StudentEntity studentEntity = repository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
+
+        // Update fields
+        studentEntity.setFirstName(updatedStudent.getFirstName());
+        studentEntity.setFirstName(updatedStudent.getFirstName());
+        studentEntity.setLastName(updatedStudent.getLastName());
+        studentEntity.setStandardName(updatedStudent.getStandardName());
+        studentEntity.setFatherName(updatedStudent.getFatherName());
+        studentEntity.setMotherName(updatedStudent.getMotherName());
+        studentEntity.setGaurdianName(updatedStudent.getGaurdianName());
+        studentEntity.setGender(updatedStudent.getGender());
+        studentEntity.setEmail(updatedStudent.getEmail());
+        studentEntity.setStudentPhoneNo(updatedStudent.getStudentPhoneNo());
+        studentEntity.setGaurdianPhoneNo(updatedStudent.getGaurdianPhoneNo());
+        studentEntity.setAddress(updatedStudent.getAddress());
+        studentEntity.setTotalFeeAmount(updatedStudent.getTotalFeeAmount());
+        studentEntity.setDiscountInPercentages(updatedStudent.getDiscountInPercentages());
+        studentEntity.setPaymentMethod(updatedStudent.getPaymentMethod());
+        studentEntity.setPaidAmount(updatedStudent.getPaidAmount());
+        studentEntity.setBalanceAmount(updatedStudent.getBalanceAmount());
+
+        // Save updated student
+        StudentEntity updated = repository.save(studentEntity);
+       StudentUpdateResponse studentUpdateResponse=new StudentUpdateResponse(updated.getStudentId(),"Student updated Sucessfully");
+        return StudentUpdateServiceResponse.builder().studentUpdateResponse(studentUpdateResponse).build();
+    }
+
 
 
     @Override
