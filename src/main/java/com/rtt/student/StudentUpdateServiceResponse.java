@@ -11,6 +11,6 @@ import lombok.ToString;
 public class StudentUpdateServiceResponse {
 
     private static final long serialVersionUID = 1L;
-    @JsonProperty("student-update-response -status")
+    @JsonProperty("student-update-response-status")
     private StudentUpdateResponse studentUpdateResponse;
 }

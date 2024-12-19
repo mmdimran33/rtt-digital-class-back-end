@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class  RegisterRequest {
 
   @JsonProperty("first_name")
   private String firstname;
