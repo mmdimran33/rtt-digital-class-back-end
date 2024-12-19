@@ -39,7 +39,7 @@ public class StudentStandardAndFeesController {
             }
         }
 
-    @GetMapping("/standard-list")
+    @GetMapping("/standard-fee-list")
     public StudentStandardAndFeesListServiceResponse getStandardAndFeesList() {
         //List<StudentStandardAndFeesEntity>studentStandardAndFeesList =  studentStandardAndFeesI.getStandardAndFeesList();
         return StudentStandardAndFeesListServiceResponse.builder().
