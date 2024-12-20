@@ -5,14 +5,8 @@ import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
-import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -93,5 +87,24 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
                 ));
     }
 
+    @Override
+    public List<Map<String, String>> getStandardNameOfList() {
+        List<String> standardNames = repository.getStandardNameOfList();
+        // Convert the list of names into a list of maps
+        return standardNames.stream()
+                .map(name -> Map.of("standard_name", name))
+                .toList();
+    }
+
 
 }
+
+
+
+ /*   @Override
+    public List<String> getStandardNameOfList() {
+        return repository.findDistinctStandardNames();
+    }*/
+
+
+

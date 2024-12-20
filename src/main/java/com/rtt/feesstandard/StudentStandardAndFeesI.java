@@ -15,4 +15,7 @@ public interface StudentStandardAndFeesI {
 
     //Method to fetch Standard-Master List
     public Map<Integer, String> getStandardNameList();
+   // public List<String> getStandardNameOfList();
+   public List<Map<String, String>> getStandardNameOfList();
+
 }
