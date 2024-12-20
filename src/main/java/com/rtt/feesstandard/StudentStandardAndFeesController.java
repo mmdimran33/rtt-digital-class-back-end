@@ -3,16 +3,12 @@ package com.rtt.feesstandard;
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
-import com.rtt.student.StudentRequest;
-import com.rtt.student.StudentServiceResponse;
-import com.rtt.subject.SubjectServiceListReponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(value = "http://localhost:3000")
@@ -70,5 +66,14 @@ public class StudentStandardAndFeesController {
         Map<Integer, String> standardMasterMap = studentStandardAndFeesI.getStandardNameList();
         return StudentStandardMListResponse.builder().studentStandardMListResponse(standardMasterMap).build();
     }
-
+    /*@GetMapping("/get-standard-name-list")
+    public List<String> getStandardNames() {
+        // Fetch and return the list of distinct standard names
+        return studentStandardAndFeesI.getStandardNameOfList();
+    }*/
+    @GetMapping("/get-standard-name-list")
+    public StudentStandardNameListResponse getStandardNameOfList() {
+        List<Map<String, String>> standardNameList= studentStandardAndFeesI.getStandardNameOfList();
+        return StudentStandardNameListResponse.builder().studentStandardMListResponse(standardNameList).build();
+    }
 }
