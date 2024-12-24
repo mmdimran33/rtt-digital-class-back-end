@@ -16,7 +16,7 @@ public class StudentStandardNameListResponse {
 
     private static final long serialVersionUID = 1L;
 
-    @JsonProperty("student_standard-name-list-status")
+    @JsonProperty("student-standard-name-list-status")
     private List<Map<String, String>> studentStandardMListResponse;
 
 
