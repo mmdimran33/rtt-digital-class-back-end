@@ -57,6 +57,7 @@ public class SecurityConfiguration {
             "/get-student-fee-amount-by-standard-name",
             "/api/v1/subjects/*",
              "/api/v1/teachers/add-teacher",
+            "/api/v1/attendance/**"
 
             };
     @Bean
@@ -67,10 +68,6 @@ public class SecurityConfiguration {
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
                                 .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), TEACHER.name())
-                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), TEACHER_READ.name())
-                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), TEACHER_CREATE.name())
-                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), TEACHER_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), TEACHER_DELETE.name())
                                 .anyRequest()
                                 .authenticated()
                 )
