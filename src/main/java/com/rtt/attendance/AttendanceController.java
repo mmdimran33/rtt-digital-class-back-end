@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RequestMapping("api/v1/attendance")
 @RestController
+@CrossOrigin(value = "http://localhost:3000")
 public class AttendanceController {
     @Autowired
     private StudentAttendanceI studentAttendanceI;
