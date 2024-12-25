@@ -77,20 +77,17 @@ public class StudentStandardAndFeesServiceImpl implements  StudentStandardAndFee
 
     @Override
     public Map<Integer, String> getStandardNameList() {
-        // Fetch the standard-master data from the repository
         List<Object[]> repo = repository.getStandardNameList();
-        // Map the results to a Map<Integer, String>
         return repo.stream()
                 .collect(Collectors.toMap(
-                        row -> (Integer) row[1],    // subjectId (row[1])
-                        row -> (String) row[0]      // subjectName (row[0])
+                        row -> (Integer) row[1],
+                        row -> (String) row[0]
                 ));
     }
 
     @Override
     public List<Map<String, String>> getStandardNameOfList() {
         List<String> standardNames = repository.getStandardNameOfList();
-        // Convert the list of names into a list of maps
         return standardNames.stream()
                 .map(name -> Map.of("standard_name", name))
                 .toList();
