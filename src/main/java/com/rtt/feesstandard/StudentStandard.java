@@ -26,7 +26,7 @@ public class StudentStandard {
 
     //One-to-One uni-directional relationship flow from StudentEntity to StudentStandard
     @OneToOne
-    @JoinColumn(name = "student_id", nullable = false)  // Foreign key column in StudentStandard table
+    @JoinColumn(name = "id", nullable = false)  // Foreign key column in StudentStandard table
     private StudentEntity studentEntity;
 
 }

@@ -52,7 +52,7 @@ public class StudentServiceImpl implements StudentI {
 
             StudentEntity savedStudent = repository.save(student);
 
-            if (savedStudent.getStudentId() != null) {
+            if (savedStudent.getId() != null) {
                 // generateStudentRegistrationInvoice(savedStudent);
                 return SuccessRegistrationResponse.builder().responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
                         .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION).build();
@@ -133,7 +133,7 @@ public class StudentServiceImpl implements StudentI {
 
         // Save updated student
         StudentEntity updated = repository.save(studentEntity);
-       StudentUpdateResponse studentUpdateResponse=new StudentUpdateResponse(updated.getStudentId(),"Student updated Sucessfully");
+       StudentUpdateResponse studentUpdateResponse=new StudentUpdateResponse(updated.getId(),"Student updated Sucessfully");
         return StudentUpdateServiceResponse.builder().studentUpdateResponse(studentUpdateResponse).build();
     }
 
