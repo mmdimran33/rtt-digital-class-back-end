@@ -18,7 +18,7 @@ public class StudentAttendanceEntity {
     @Column(name="last_name")
     private String lastName;
     @Column(name="student_phoneno")
-    private Long studentPhoneNo;
+    private String studentPhoneNo;
     @Column(name="standard_name")
     private String standardName;
 }

@@ -14,7 +14,7 @@ public class StudentAttendanceListResponse {
     @JsonProperty("last_name")
     private String lastName;
     @JsonProperty("student_phone_no")
-    private long studentPhoneNo;
+    private String studentPhoneNo;
     @JsonProperty("standard_name")
     private String standardName;
 }

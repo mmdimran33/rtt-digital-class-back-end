@@ -21,7 +21,7 @@ public class StudentAttendanceServiceImpl implements StudentAttendanceI{
             StudentAttendanceListResponse response = StudentAttendanceListResponse.builder()
                     .firstName((String) record[0])
                     .lastName((String) record[1])
-                    .studentPhoneNo((Long) record[2])
+                    .studentPhoneNo((String) record[2])
                     .standardName((String) record[3])
                     .build();
             responseList.add(response);

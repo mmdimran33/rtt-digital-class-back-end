@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class StudentUpdateResponse {
     @JsonProperty("student_id")
-    private Integer studentId;
+    private Long studentId;
 
     @JsonProperty("response_description")
     private String responseDescription;
