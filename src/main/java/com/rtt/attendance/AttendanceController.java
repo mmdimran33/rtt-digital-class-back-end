@@ -1,7 +1,10 @@
 package com.rtt.attendance;
 
+import com.rtt.common.SuccessRegistrationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,5 +23,13 @@ public class AttendanceController {
         }
         return ResponseEntity.ok(StudentAttendanceListServiceResponse.builder().studentAttendanceListResponse(responseList).build());
     }
-}
 
+    @PostMapping("students-attendance-marking-batch")
+    public ResponseEntity<?> createAttendances(@RequestBody List<StudentAttendanceRequest> studentAttendanceRequests) {
+        try {
+            List<SuccessRegistrationResponse> SuccessRegistrationResponse = studentAttendanceI.createAttendance(studentAttendanceRequests);
+            return ResponseEntity.ok(SuccessRegistrationResponse);
+        } catch (Exception e) {
+            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }}

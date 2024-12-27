@@ -17,4 +17,5 @@ public class StudentAttendanceListResponse {
     private String studentPhoneNo;
     @JsonProperty("standard_name")
     private String standardName;
+
 }
