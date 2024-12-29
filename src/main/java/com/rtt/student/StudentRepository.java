@@ -17,7 +17,7 @@ public interface StudentRepository extends JpaRepository<StudentEntity,Integer> 
    @Query(value = "select sum(paid_amount) from student",nativeQuery = true)
     Float calculateTotalRecoveredAmount();
 
-    @Query(value = "SELECT COUNT(student_id) FROM student", nativeQuery = true)
+    @Query(value = "SELECT COUNT(id) FROM student", nativeQuery = true)
     Integer getTotalNumberOfStudents();
     //Fetching Pending Amount of Student from Student Table
     @Query(value = "SELECT SUM(total_fee_amount) - SUM(paid_amount) AS pending_amount FROM student", nativeQuery = true)
