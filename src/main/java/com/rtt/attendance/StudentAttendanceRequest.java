@@ -21,7 +21,7 @@ public class StudentAttendanceRequest {
     private String firstName;
     @JsonProperty("last_name")
     private String lastName;
-    @JsonProperty("student_phoneno")
+    @JsonProperty("student_phone_no")
     private String studentPhoneNo;
     @JsonProperty("standard_name")
     private String standardName;
