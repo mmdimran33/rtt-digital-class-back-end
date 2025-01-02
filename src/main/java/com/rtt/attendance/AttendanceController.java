@@ -32,4 +32,11 @@ public class AttendanceController {
         } catch (Exception e) {
             return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }}
+    }
+    @GetMapping("/get-attendance-marked-list")
+    public StudentAttendanceResponse getStudentsWithAttendance() {
+        List<AttendanceMarkingEntity> attendanceList = studentAttendanceI.getAllStudentsWithAttendance();
+        return new StudentAttendanceResponse(attendanceList);
+    }
+}
+
