@@ -64,6 +64,9 @@ public class StudentAttendanceServiceImpl implements StudentAttendanceI{
             );
         }
     }
+    @Override
+    public List<AttendanceMarkingEntity> getAllStudentsWithAttendance() {
+        return attendanceRepository.findAll();
+
     }
-
-
+}
