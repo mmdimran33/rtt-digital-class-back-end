@@ -31,8 +31,8 @@ public class FeesManagementEntity {
     private String studentPhoneNo;
     @Column(name = "total_fee_amount")
     private Float totalFeeAmount;
-    @Column(name = "discount_in_percentages")
-    private Float discountInPercentages;
+   /* @Column(name = "discount_in_percentages")
+    private Float discountInPercentages; */
     @Column(name = "payment_method")
     private String paymentMethod;
     @Column(name = "paid_amount")
@@ -40,7 +40,7 @@ public class FeesManagementEntity {
     @Column(name = "balance_amount")
     private Float balanceAmount;
     @Column(name = "updated_date")
-    private  Timestamp updatedDate;
+    private  LocalDate updatedDate;
 
 
 

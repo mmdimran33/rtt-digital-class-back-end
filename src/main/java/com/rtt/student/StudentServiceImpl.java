@@ -66,11 +66,11 @@ public class StudentServiceImpl implements StudentI {
                         .email(savedStudent.getEmail())
                         .studentPhoneNo(savedStudent.getStudentPhoneNo())
                         .totalFeeAmount(savedStudent.getTotalFeeAmount())
-                        .discountInPercentages(savedStudent.getDiscountInPercentages())
+                       // .discountInPercentages(savedStudent.getDiscountInPercentages())
                         .paymentMethod(savedStudent.getPaymentMethod())
                         .paidAmount(savedStudent.getPaidAmount())
                         .balanceAmount(savedStudent.getBalanceAmount())
-                        .updatedDate(savedStudent.getUpdatedDate()).build();
+                        .updatedDate(savedStudent.getRegistrationDate()).build();
                 feesManagementRepository.save(feesManagementEntity);
 
                 return SuccessRegistrationResponse.builder().responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
