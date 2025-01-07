@@ -3,6 +3,8 @@ package com.rtt.student;
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
+import com.rtt.feesdetails.FeesManagementEntity;
+import com.rtt.feesdetails.FeesManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class StudentServiceImpl implements StudentI {
 
     @Autowired
     private StudentRepository repository;
+
+    @Autowired
+    private FeesManagementRepository feesManagementRepository;
 
     @Override
     public SuccessRegistrationResponse createStudent(StudentRequest studentRequest) {
@@ -53,7 +58,21 @@ public class StudentServiceImpl implements StudentI {
             StudentEntity savedStudent = repository.save(student);
 
             if (savedStudent.getId() != null) {
-                // generateStudentRegistrationInvoice(savedStudent);
+
+                var feesManagementEntity = FeesManagementEntity.builder().
+                studentId(savedStudent.getId())
+                        .firstName(savedStudent.getFirstName())
+                        .standardName(savedStudent.getStandardName())
+                        .email(savedStudent.getEmail())
+                        .studentPhoneNo(savedStudent.getStudentPhoneNo())
+                        .totalFeeAmount(savedStudent.getTotalFeeAmount())
+                        .discountInPercentages(savedStudent.getDiscountInPercentages())
+                        .paymentMethod(savedStudent.getPaymentMethod())
+                        .paidAmount(savedStudent.getPaidAmount())
+                        .balanceAmount(savedStudent.getBalanceAmount())
+                        .updatedDate(savedStudent.getUpdatedDate()).build();
+                feesManagementRepository.save(feesManagementEntity);
+
                 return SuccessRegistrationResponse.builder().responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
                         .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION).build();
             }
