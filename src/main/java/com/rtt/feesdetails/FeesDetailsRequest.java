@@ -20,6 +20,8 @@ public class FeesDetailsRequest {
     private Long studentId;
     @JsonProperty("first_name")
     private String firstName;
+    @JsonProperty("paid_person_name")
+    private String paidPersonName;
     @JsonProperty("standard_name")
     private String standardName;
     @JsonProperty("email_id")

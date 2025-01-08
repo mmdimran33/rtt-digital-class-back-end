@@ -18,6 +18,8 @@ public class StudentRequest {
 
     @JsonProperty("first_name")
     private String firstName;
+    @JsonProperty("paid_person_name")
+    private String paidPersonName;
     @JsonProperty("last_name")
     private String lastName;
     @JsonProperty("standard_name")
