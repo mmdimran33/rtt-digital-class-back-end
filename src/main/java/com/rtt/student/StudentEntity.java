@@ -20,6 +20,8 @@ public class StudentEntity {
     private Long id;
     @Column(name = "first_name")
     private String firstName;
+    @Column(name = "paid_person_name")
+    private String paidPersonName;
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "standard_name")

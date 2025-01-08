@@ -31,6 +31,7 @@ public class StudentServiceImpl implements StudentI {
 
             var student = StudentEntity.builder().
                     firstName(studentRequest.getFirstName())
+                    .paidPersonName(studentRequest.getPaidPersonName())
                     .lastName(studentRequest.getLastName())
                     .standardName(studentRequest.getStandardName())
                     .fatherName(studentRequest.getFatherName())
@@ -62,6 +63,7 @@ public class StudentServiceImpl implements StudentI {
                 var feesManagementEntity = FeesManagementEntity.builder().
                 studentId(savedStudent.getId())
                         .firstName(savedStudent.getFirstName())
+                        .paidPersonName(savedStudent.getPaidPersonName())
                         .standardName(savedStudent.getStandardName())
                         .email(savedStudent.getEmail())
                         .studentPhoneNo(savedStudent.getStudentPhoneNo())
@@ -133,7 +135,7 @@ public class StudentServiceImpl implements StudentI {
 
         // Update fields
         studentEntity.setFirstName(updatedStudent.getFirstName());
-        studentEntity.setFirstName(updatedStudent.getFirstName());
+        studentEntity.setPaidPersonName(updatedStudent.getPaidPersonName());
         studentEntity.setLastName(updatedStudent.getLastName());
         studentEntity.setStandardName(updatedStudent.getStandardName());
         studentEntity.setFatherName(updatedStudent.getFatherName());

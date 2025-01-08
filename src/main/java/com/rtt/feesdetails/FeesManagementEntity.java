@@ -23,6 +23,8 @@ public class FeesManagementEntity {
     private Long studentId;
     @Column(name = "first_name")
     private String firstName;
+    @Column(name = "paid_person_name")
+    private String paidPersonName;
     @Column(name = "standard_name")
     private String standardName;
     @Column(name = "email_id")

@@ -17,6 +17,8 @@ public class FeesDetailsServiceImpl implements FeesDetailsServiceI {
         try {
             var feesManagementEntity = FeesManagementEntity.builder()
                     .firstName(feesDetailsRequest.getFirstName())
+                    .studentId(feesDetailsRequest.getStudentId())
+                    .paidPersonName(feesDetailsRequest.getPaidPersonName())
                     .standardName(feesDetailsRequest.getStandardName())
                     .email(feesDetailsRequest.getEmail())
                     .studentPhoneNo(feesDetailsRequest.getStudentPhoneNo())
