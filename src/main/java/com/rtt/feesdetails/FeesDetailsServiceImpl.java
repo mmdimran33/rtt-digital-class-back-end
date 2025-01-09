@@ -6,6 +6,9 @@ import com.rtt.exception.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class FeesDetailsServiceImpl implements FeesDetailsServiceI {
 
@@ -37,5 +40,16 @@ public class FeesDetailsServiceImpl implements FeesDetailsServiceI {
                     RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public List<FeesManagementEntity> getFeesManagementList() {
+        List<FeesManagementEntity> feesManagementList = feesManagementRepository.findAll();
+        if (!feesManagementList.isEmpty()) {
+            System.out.println("First record: " + feesManagementList.get(0));
+        } else {
+            System.out.println("No records found for the given List");
+        }
+        return feesManagementList;
     }
 }
