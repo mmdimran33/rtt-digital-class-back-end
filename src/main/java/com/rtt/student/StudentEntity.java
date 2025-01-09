@@ -53,10 +53,6 @@ public class StudentEntity {
     private Float paidAmount;
     @Column(name = "balance_amount")
     private Float balanceAmount;
-    @Column(name = "created_date")
-    private  Timestamp createdDate;
-    @Column(name = "updated_date")
-    private  Timestamp updatedDate;
 
 
 
