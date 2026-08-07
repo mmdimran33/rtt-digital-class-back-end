@@ -54,4 +54,48 @@ public class FeesDetailsServiceImpl implements FeesDetailsServiceI {
         }
         return feesManagementList;
     }
+
+    @Override
+    public SuccessRegistrationResponse updateStudentFees(
+            Long id,
+            FeesDetailsRequest feesDetailsRequest) throws RegistrationException {
+
+        try {
+            FeesManagementEntity feesManagementEntity =
+                    feesManagementRepository.findById(id)
+                            .orElseThrow(() ->
+                                    new RuntimeException(
+                                            "Fees details not found for id: " + id
+                                    )
+                            );
+
+            feesManagementEntity.setFirstName(feesDetailsRequest.getFirstName());
+            feesManagementEntity.setStudentId(feesDetailsRequest.getStudentId());
+            feesManagementEntity.setPaidPersonName(feesDetailsRequest.getPaidPersonName());
+            feesManagementEntity.setStandardName(feesDetailsRequest.getStandardName());
+            feesManagementEntity.setEmail(feesDetailsRequest.getEmail());
+            feesManagementEntity.setStudentPhoneNo(feesDetailsRequest.getStudentPhoneNo());
+            feesManagementEntity.setTotalFeeAmount(feesDetailsRequest.getTotalFeeAmount());
+            feesManagementEntity.setPaymentMethod(feesDetailsRequest.getPaymentMethod());
+            feesManagementEntity.setPaidAmount(feesDetailsRequest.getPaidAmount());
+            feesManagementEntity.setBalanceAmount(feesDetailsRequest.getBalanceAmount());
+            feesManagementEntity.setUpdatedDate(feesDetailsRequest.getUpdatedDate());
+
+            feesManagementRepository.save(feesManagementEntity);
+
+            return SuccessRegistrationResponse.builder()
+                    .responseCode(
+                            RegistrationResponseConstants.STUDENT_FEES_UPDATE_SUCCESS_CODE)
+                    .responseDescription(
+                            RegistrationResponseConstants.STUDENT_FEES_UPDATE_SUCCESS_DESCRIPTION)
+                    .build();
+
+        } catch (Exception e) {
+            throw new RegistrationException(
+                    RegistrationResponseConstants.STUDENT_FEES_UPDATE_FAILURE_CODE,
+                    RegistrationResponseConstants.STUDENT_FEES_UPDATE_FAILURE_DESCRIPTION
+                            + e.getMessage()
+            );
+        }
+    }
 }

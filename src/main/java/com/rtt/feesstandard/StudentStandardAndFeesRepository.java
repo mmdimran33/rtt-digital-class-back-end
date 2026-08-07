@@ -16,7 +16,7 @@ public interface StudentStandardAndFeesRepository extends JpaRepository<StudentS
     Optional<StudentStandardAndFeesEntity> findByStandardName(String standardName);
 
 //Fresh Changes
-    @Query(value = "SELECT f.fee_amount FROM fee f WHERE f.standard_name = :standardName", nativeQuery = true)
+    @Query(value = "SELECT f.fee_amount FROM fee f WHERE f.standard_name = ''", nativeQuery = true)
     Double findFeesAmountByStandardName(@Param("standardName") String standardName);
 
 

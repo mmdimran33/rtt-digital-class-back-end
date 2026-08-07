@@ -40,4 +40,29 @@ public class FeesDetailsController {
         }
         return response;
     }
+
+    @PutMapping("/update-student-fees/{id}")
+    public ResponseEntity<FeesDetailsServiceResponse> updateStudentFees(
+            @PathVariable Long id,
+            @RequestBody FeesDetailsRequest feesDetailsRequest)
+            throws RegistrationException {
+
+        try {
+            SuccessRegistrationResponse response =
+                    feesDetailsServiceI.updateStudentFees(id, feesDetailsRequest);
+
+            return ResponseEntity.ok(
+                    FeesDetailsServiceResponse.builder()
+                            .successRegistrationResponse(response)
+                            .build()
+            );
+
+        } catch (Exception e) {
+            throw new RegistrationException(
+                    RegistrationResponseConstants.STUDENT_FEES_UPDATE_FAILURE_CODE,
+                    RegistrationResponseConstants.STUDENT_FEES_UPDATE_FAILURE_DESCRIPTION
+                            + e.getMessage()
+            );
+        }
+    }
 }
