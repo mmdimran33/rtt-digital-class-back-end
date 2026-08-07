@@ -9,4 +9,7 @@ public interface FeesDetailsServiceI {
 
     public SuccessRegistrationResponse createFeesManagement(FeesDetailsRequest feesDetailsRequest) throws RegistrationException;
     public List<FeesManagementEntity> getFeesManagementList();
+    SuccessRegistrationResponse updateStudentFees(
+            Long id,
+            FeesDetailsRequest feesDetailsRequest) throws RegistrationException;
 }

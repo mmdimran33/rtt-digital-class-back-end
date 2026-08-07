@@ -1,0 +1,7 @@
+
+W
+java:S6213":Rename this variable to not match a restricted identifier.(å‹¼“8›»Ç‹Â2
+o
+java:S62044"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8¢»Ç‹Â2
+o
+java:S6204;"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8‰þÉ‹Â2

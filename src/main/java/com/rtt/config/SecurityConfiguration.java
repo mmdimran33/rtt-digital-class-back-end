@@ -63,6 +63,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
+                                .requestMatchers("/actuator/**").permitAll()
                                 .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), TEACHER.name())
                                 .anyRequest()
                                 .authenticated()
