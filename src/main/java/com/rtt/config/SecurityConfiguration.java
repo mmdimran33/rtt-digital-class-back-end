@@ -51,10 +51,11 @@ public class SecurityConfiguration {
             "/api/v1/standardandfees/***",
             "/api/v1/teachers/**",
             "/api/v1/student/**",
-            "/get-student-fee-amount-by-standard-name",
+            "",
             "/api/v1/subjects/**",
             "/api/v1/attendance/**",
-            "/api/v1/fees-details-mgmt/**"
+            "/api/v1/fees-details-mgmt/**",
+            "/api/v1/courses/**"
             };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
