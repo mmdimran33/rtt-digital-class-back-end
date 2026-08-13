@@ -1,5 +1,6 @@
 package com.rtt.student;
 
+import com.rtt.course.entity.Course;
 import com.rtt.feesstandard.StudentStandard;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,6 +8,7 @@ import java.sql.Timestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Builder
 @Data
@@ -56,6 +58,16 @@ public class StudentEntity {
     @Column(name = "balance_amount")
     private Float balanceAmount;
 
+    @Column(name = "category")
+    private String category;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> courses;
 
 
 

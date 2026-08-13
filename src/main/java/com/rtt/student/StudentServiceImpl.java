@@ -2,6 +2,8 @@ package com.rtt.student;
 
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
+import com.rtt.course.entity.Course;
+import com.rtt.course.repository.CourseRepository;
 import com.rtt.exception.RegistrationException;
 import com.rtt.feesdetails.FeesManagementEntity;
 import com.rtt.feesdetails.FeesManagementRepository;
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +27,35 @@ public class StudentServiceImpl implements StudentI {
     @Autowired
     private FeesManagementRepository feesManagementRepository;
 
+    @Autowired
+    private CourseRepository courseRepository;
+
     @Override
     public SuccessRegistrationResponse createStudent(StudentRequest studentRequest) {
 
         try {
+
+            // Fetch courses only for Non Academic students
+            List<Course> courses = new ArrayList<>();
+
+            if ("Non Academic".equalsIgnoreCase(studentRequest.getCategory())) {
+
+                if (studentRequest.getCourse() != null
+                        && !studentRequest.getCourse().isEmpty()) {
+
+                    courses = courseRepository.findByNameIn(
+                            studentRequest.getCourse()
+                    );
+
+                    // Make sure all requested courses actually exist
+                    if (courses.size() != studentRequest.getCourse().size()) {
+                        throw new RegistrationException(
+                                RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
+                                "One or more selected courses are not available"
+                        );
+                    }
+                }
+            }
 
             var student = StudentEntity.builder().
                     firstName(studentRequest.getFirstName())
@@ -48,13 +76,9 @@ public class StudentServiceImpl implements StudentI {
                     .paymentMethod(studentRequest.getPaymentMethod())
                     .discountInPercentages(studentRequest.getDiscountInPercentages())
                     .balanceAmount(studentRequest.getBalanceAmount())
+                    .category(studentRequest.getCategory())
+                    .courses(courses)
                     .build();
-
-          /*  var standard = StudentStandard.builder()
-                    .standardName(studentRequest.getStandardName())
-                    .studentEntity(student)
-                    .build();
-            student.setStudentStandard(standard);*/
 
             StudentEntity savedStudent = repository.save(student);
 
