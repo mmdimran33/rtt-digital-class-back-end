@@ -28,7 +28,7 @@ public class FeesDetailsController {
                     RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage());
         }
     }
-    @GetMapping("/get-fees-management-list")
+   /* @GetMapping("/get-fees-management-list")
     public FeesManagementListResponse getFeesManagementList() {
         List<FeesManagementEntity> feesManagementList = feesDetailsServiceI.getFeesManagementList();
         FeesManagementListResponse response = new FeesManagementListResponse();
@@ -39,6 +39,15 @@ public class FeesDetailsController {
             System.out.println("No records found for the given List");
         }
         return response;
+    }*/
+
+    @GetMapping("/get-fees-management-list")
+    public ResponseEntity<List<FeesManagementItemResponse>> getFeesManagementList() {
+
+        List<FeesManagementItemResponse> response =
+                feesDetailsServiceI.getFeesManagementList();
+
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update-student-fees/{id}")
