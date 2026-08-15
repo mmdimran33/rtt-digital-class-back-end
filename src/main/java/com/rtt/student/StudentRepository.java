@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity,Integer> {
@@ -25,5 +26,7 @@ public interface StudentRepository extends JpaRepository<StudentEntity,Integer> 
 
     @Query(value = "SELECT email_id,address,first_name,last_name,standard_name from student WHERE standard_name=:standardName", nativeQuery = true)
     List<Object[]> findStandardListByStandardWise(@Param("standardName") String standardName);
+
+    Optional<StudentEntity> findById(Long id);
 
 }

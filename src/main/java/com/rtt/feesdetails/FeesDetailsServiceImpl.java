@@ -2,11 +2,15 @@ package com.rtt.feesdetails;
 
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
+import com.rtt.course.entity.Course;
 import com.rtt.exception.RegistrationException;
+import com.rtt.student.StudentEntity;
+import com.rtt.student.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -14,6 +18,9 @@ public class FeesDetailsServiceImpl implements FeesDetailsServiceI {
 
     @Autowired
     private FeesManagementRepository feesManagementRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Override
     public SuccessRegistrationResponse createFeesManagement(FeesDetailsRequest feesDetailsRequest) throws RegistrationException {
@@ -44,7 +51,7 @@ public class FeesDetailsServiceImpl implements FeesDetailsServiceI {
         return null;
     }
 
-    @Override
+/*    @Override
     public List<FeesManagementEntity> getFeesManagementList() {
         List<FeesManagementEntity> feesManagementList = feesManagementRepository.findAll();
         if (!feesManagementList.isEmpty()) {
@@ -53,6 +60,44 @@ public class FeesDetailsServiceImpl implements FeesDetailsServiceI {
             System.out.println("No records found for the given List");
         }
         return feesManagementList;
+    }*/
+
+    @Override
+    public List<FeesManagementItemResponse> getFeesManagementList() {
+
+        List<FeesManagementEntity> entities =
+                feesManagementRepository.findAll();
+
+        return entities.stream()
+                .map(entity -> {
+
+                    List<Course> courses = Collections.emptyList();
+
+                    if (entity.getStudentId() != null) {
+
+                        courses = studentRepository
+                                .findById(entity.getStudentId())
+                                .map(StudentEntity::getCourses)
+                                .orElse(Collections.emptyList());
+                    }
+
+                    return FeesManagementItemResponse.builder()
+                            .id(entity.getId())
+                            .studentId(entity.getStudentId())
+                            .firstName(entity.getFirstName())
+                            .paidPersonName(entity.getPaidPersonName())
+                            .standardName(entity.getStandardName())
+                            .email(entity.getEmail())
+                            .studentPhoneNo(entity.getStudentPhoneNo())
+                            .totalFeeAmount(entity.getTotalFeeAmount())
+                            .paymentMethod(entity.getPaymentMethod())
+                            .paidAmount(entity.getPaidAmount())
+                            .balanceAmount(entity.getBalanceAmount())
+                            .updatedDate(entity.getUpdatedDate())
+                            .courses(courses)
+                            .build();
+                })
+                .toList();
     }
 
     @Override
