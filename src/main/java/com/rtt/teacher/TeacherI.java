@@ -5,4 +5,6 @@ import java.util.List;
 public interface TeacherI {
     public SuccessTeacherResponse createTeacher(TeacherRequest teacherRequest );
     public List<Teacher> allTeacherList();
+    SuccessTeacherResponse updateTeacher(Integer teacherId, TeacherRequest teacherRequest);
+    SuccessTeacherResponse deleteTeacher(Integer teacherId);
 }

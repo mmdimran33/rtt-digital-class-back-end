@@ -15,11 +15,14 @@ public class TeacherRequest {
     @JsonProperty("teacher_name")
     private String teacherName;
 
-    @JsonProperty("subject")
-    private String subject;
+   /* @JsonProperty("subject")
+    private String subject;*/
 
     @JsonProperty("phone_no")
     private long phoneNo;
+
+    @JsonProperty("about_teacher")
+    private String aboutTeacher;
 
     @JsonProperty("aadhar_no")
     private long aadharNo;
@@ -36,7 +39,7 @@ public class TeacherRequest {
     @JsonProperty("teacher_qualification")
     private String teacherQualification;
 
-    @JsonProperty("subject_Id")
+    @JsonProperty("subject_id")
     private Iterable<Integer> subjectId;
 }
 
