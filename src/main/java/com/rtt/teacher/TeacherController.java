@@ -17,13 +17,13 @@ import java.util.Optional;
 @RequestMapping("/api/v1/teachers")
 public class TeacherController {
     @Autowired
-    private  TeacherI teacherI;
+    private  TeacherI teacherService;
 
     @PostMapping("/add-teacher")
     public ResponseEntity<TeacherServiceResponse> addTeacher(
             @RequestBody TeacherRequest teacherRequest) throws RegistrationException {
             try{
-                SuccessTeacherResponse response  =teacherI.createTeacher(teacherRequest);
+                SuccessTeacherResponse response  =teacherService.createTeacher(teacherRequest);
                 return ResponseEntity.ok(TeacherServiceResponse.builder().successTeacherResponse(response).build());
             }catch (Exception e){
                 throw new RegistrationException (RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
@@ -31,10 +31,31 @@ public class TeacherController {
             }
     }
 
+    @PutMapping("/{teacherId}")
+    public ResponseEntity<SuccessTeacherResponse> updateTeacher(
+            @PathVariable Integer teacherId,
+            @RequestBody TeacherRequest teacherRequest) {
+
+        return ResponseEntity.ok(
+                teacherService.updateTeacher(
+                        teacherId,
+                        teacherRequest
+                )
+        );
+    }
+
+    @DeleteMapping("/{teacherId}")
+    public ResponseEntity<SuccessTeacherResponse> deleteTeacher(
+            @PathVariable Integer teacherId) {
+
+        return ResponseEntity.ok(
+                teacherService.deleteTeacher(teacherId)
+        );
+    }
 
     @GetMapping("/allTeacher")
     public List<Teacher> allTeacherList(){
-        List<Teacher> teacherList = teacherI.allTeacherList();
+        List<Teacher> teacherList = teacherService.allTeacherList();
         return teacherList != null ? teacherList : new ArrayList<>();
     }
 
