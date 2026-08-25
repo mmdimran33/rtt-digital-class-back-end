@@ -71,10 +71,5 @@ public class StudentEntity {
 
 
 
-    // One-to-One bi-directional relationship flow from StudentStandard to StudentEntity
-//    @OneToOne(mappedBy = "studentEntity", cascade = CascadeType.ALL)
-//    private StudentStandard studentStandard;
-//
-
 
 }

@@ -1,10 +1,11 @@
-package com.rtt.attendance;
+package com.rtt.common;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDate;
 
@@ -14,16 +15,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class StudentAttendanceRequest {
 
-   @JsonProperty("first_name")
-    private String firstName;
-    @JsonProperty("last_name")
-    private String lastName;
-    @JsonProperty("student_phone_no")
-    private String studentPhoneNo;
-    @JsonProperty("standard_name")
-    private String standardName;
-    @JsonProperty("attendance_marked_date")
+    private Long studentId;
+
     private LocalDate attendanceMarkedDate;
-    @JsonProperty("attendance_action")
+
     private String attendanceAction;
 }

@@ -1,5 +1,6 @@
 package com.rtt.attendance;
 
+import com.rtt.common.StudentAttendanceRequest;
 import com.rtt.common.SuccessRegistrationResponse;
 
 import java.util.List;
