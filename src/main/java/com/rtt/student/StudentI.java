@@ -1,5 +1,6 @@
 package com.rtt.student;
 
+import com.rtt.common.StudentAttendanceResponse;
 import com.rtt.common.SuccessRegistrationResponse;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,5 +19,8 @@ public interface StudentI {
     public StudentCountResponse getTotalNoOfStudent();
     public TotalPendingResponse getTotalPendingAmount();
     public List<Object[]> getStandardListByStandardWise(String standardName);
-    public StudentUpdateServiceResponse getUpdateStudentById(Integer studentId, @RequestBody StudentRequest updatedStudent);
+    public StudentUpdateServiceResponse getUpdateStudentById(Long studentId, @RequestBody StudentRequest updatedStudent);
+    List<StudentAttendanceResponse> getStudents(
+            String standardName,
+            Long courseId);
 }

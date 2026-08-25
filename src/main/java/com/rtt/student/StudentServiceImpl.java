@@ -1,5 +1,6 @@
 package com.rtt.student;
 
+import com.rtt.common.StudentAttendanceResponse;
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.course.entity.Course;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -153,7 +153,7 @@ public class StudentServiceImpl implements StudentI {
     }
 
     @Override
-    public StudentUpdateServiceResponse getUpdateStudentById(Integer studentId, StudentRequest updatedStudent) {
+    public StudentUpdateServiceResponse getUpdateStudentById(Long studentId, StudentRequest updatedStudent) {
         StudentEntity studentEntity = repository.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
 
@@ -182,13 +182,49 @@ public class StudentServiceImpl implements StudentI {
         return StudentUpdateServiceResponse.builder().studentUpdateResponse(studentUpdateResponse).build();
     }
 
-
-
     @Override
     public TotalEarningResponse getTotalFeeAmount() {
         // Fetch total earning of students from the repository
         Float totalEarningAmount = repository.calculateTotalEarningAmount();
         return TotalEarningResponse.builder().totalEarningAmount(totalEarningAmount).build();
+    }
+
+
+    @Override
+    public List<StudentAttendanceResponse> getStudents(
+            String standardName,
+            Long courseId) {
+
+        if (standardName != null && !standardName.isBlank()) {
+
+            return repository.findStudentsByStandard(standardName)
+                    .stream()
+                    .map(s -> StudentAttendanceResponse.builder()
+                            .studentId(s.getStudentId())
+                            .firstName(s.getFirstName())
+                            .lastName(s.getLastName())
+                            .studentPhoneNo(s.getStudentPhoneNo())
+                            .standardName(s.getStandardName())
+                            .build())
+                    .toList();
+        }
+
+        if (courseId != null) {
+
+            return repository.findStudentsByCourse(courseId)
+                    .stream()
+                    .map(s -> StudentAttendanceResponse.builder()
+                            .studentId(s.getStudentId())
+                            .firstName(s.getFirstName())
+                            .lastName(s.getLastName())
+                            .studentPhoneNo(s.getStudentPhoneNo())
+                            .standardName(s.getStandardName())
+                            .build())
+                    .toList();
+        }
+
+        throw new IllegalArgumentException(
+                "Either standardName or courseId is required");
     }
 }
 

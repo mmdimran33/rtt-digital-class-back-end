@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class AttendanceMarkingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     @Column(name="first_name")
     private String firstName;
     @Column(name="last_name")
@@ -29,4 +29,7 @@ public class AttendanceMarkingEntity {
     private LocalDate attendanceMarkedDate;
     @Column(name = "attendance_action")
     private String attendanceAction;
+
+    @Column(name="student_id")
+    private Long  studentId;
 }

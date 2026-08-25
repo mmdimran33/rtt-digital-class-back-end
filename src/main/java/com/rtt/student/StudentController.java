@@ -1,16 +1,14 @@
 package com.rtt.student;
 
+import com.rtt.common.StudentAttendanceResponse;
 import com.rtt.common.SuccessRegistrationResponse;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @CrossOrigin(value = "http://localhost:3000")
@@ -82,9 +80,18 @@ public class StudentController {
           return ResponseEntity.ok(StudentListResponse.builder().StandardList(standardList).build());
     }
     @PutMapping("/updateStudent/{studentId}")
-    public ResponseEntity<StudentUpdateServiceResponse> updateStudent(@PathVariable Integer studentId,@RequestBody StudentRequest studentRequest) {
+    public ResponseEntity<StudentUpdateServiceResponse> updateStudent(@PathVariable Long studentId,@RequestBody StudentRequest studentRequest) {
         StudentUpdateServiceResponse response = studentService.getUpdateStudentById(studentId, studentRequest);
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/get-students")
+    public ResponseEntity<List<StudentAttendanceResponse>> getStudents(
+            @RequestParam(required = false) String standardName,
+            @RequestParam(required = false) Long courseId) {
+
+        return ResponseEntity.ok(
+                studentService.getStudents(standardName, courseId)
+        );
+    }
 }

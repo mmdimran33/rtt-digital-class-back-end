@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface StudentAttendanceRepository extends JpaRepository<StudentAttendanceEntity,Integer>{
+public interface StudentAttendanceRepository extends JpaRepository<StudentAttendanceEntity,Long>{
     @Query(value = "SELECT first_name, last_name, student_phoneno, standard_name FROM student WHERE standard_name = :standardName", nativeQuery = true)
     List<Object[]> findStudentsAttendanceByStandardName(@Param("standardName") String standardName);
 

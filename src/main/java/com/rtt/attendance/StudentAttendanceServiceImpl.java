@@ -1,5 +1,6 @@
 package com.rtt.attendance;
 
+import com.rtt.common.StudentAttendanceRequest;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
 import jakarta.transaction.Transactional;
@@ -38,32 +39,44 @@ public class StudentAttendanceServiceImpl implements StudentAttendanceI{
     }
 
     @Override
-    public List<SuccessRegistrationResponse> createAttendance(List<StudentAttendanceRequest> studentAttendanceRequests) {
+    public List<SuccessRegistrationResponse> createAttendance(
+            List<StudentAttendanceRequest> studentAttendanceRequests) {
+
         try {
-            List<AttendanceMarkingEntity> attendances = studentAttendanceRequests.stream()
-                    .map(request -> AttendanceMarkingEntity.builder()
-                            .firstName(request.getFirstName())
-                            .lastName(request.getLastName())
-                            .studentPhoneNo(request.getStudentPhoneNo())
-                            .standardName(request.getStandardName())
-                            .attendanceMarkedDate(request.getAttendanceMarkedDate())
-                            .attendanceAction(request.getAttendanceAction())
-                            .build())
-                    .collect(Collectors.toList());
-            List<AttendanceMarkingEntity> savedAttendances = attendanceRepository.saveAll(attendances);
+            List<AttendanceMarkingEntity> attendances =
+                    studentAttendanceRequests.stream()
+                            .map(request -> AttendanceMarkingEntity.builder()
+                                    .studentId(request.getStudentId())
+                                    .attendanceMarkedDate(request.getAttendanceMarkedDate())
+                                    .attendanceAction(request.getAttendanceAction())
+                                    .build())
+                            .collect(Collectors.toList());
+
+            List<AttendanceMarkingEntity> savedAttendances =
+                    attendanceRepository.saveAll(attendances);
+
             return savedAttendances.stream()
                     .map(savedAttendance -> SuccessRegistrationResponse.builder()
-                            .responseCode(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_CODE)
-                            .responseDescription(RegistrationResponseConstants.REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION)
+                            .responseCode(
+                                    RegistrationResponseConstants
+                                            .REGISTRATION_RESPONSE_SUCCESS_CODE)
+                            .responseDescription(
+                                    RegistrationResponseConstants
+                                            .REGISTRATION_RESPONSE_SUCCESS_DESCTIPTION)
                             .build())
                     .collect(Collectors.toList());
+
         } catch (Exception e) {
             throw new RegistrationException(
-                    RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_CODE,
-                    RegistrationResponseConstants.REGISTRATION_RESPONSE_FAILURE_DESCTIPTION + e.getMessage()
+                    RegistrationResponseConstants
+                            .REGISTRATION_RESPONSE_FAILURE_CODE,
+                    RegistrationResponseConstants
+                            .REGISTRATION_RESPONSE_FAILURE_DESCTIPTION
+                            + e.getMessage()
             );
         }
     }
+
     @Override
     public List<AttendanceMarkingEntity> getAllStudentsWithAttendance() {
         return attendanceRepository.findAll();
