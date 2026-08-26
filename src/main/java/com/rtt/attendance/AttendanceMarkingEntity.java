@@ -17,14 +17,14 @@ public class AttendanceMarkingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name="first_name")
+   /* @Column(name="first_name")
     private String firstName;
     @Column(name="last_name")
     private String lastName;
     @Column(name="student_phoneno")
     private String studentPhoneNo;
     @Column(name="standard_name")
-    private String standardName;
+    private String standardName;*/
     @Column(name = "attendance_marked_date")
     private LocalDate attendanceMarkedDate;
     @Column(name = "attendance_action")
