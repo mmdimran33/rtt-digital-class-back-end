@@ -3,10 +3,13 @@ package com.rtt.attendance;
 import com.rtt.common.StudentAttendanceRequest;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.RegistrationException;
+import com.rtt.projection.ViewAttendanceProjection;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.rtt.common.SuccessRegistrationResponse;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,5 +84,54 @@ public class StudentAttendanceServiceImpl implements StudentAttendanceI{
     public List<AttendanceMarkingEntity> getAllStudentsWithAttendance() {
         return attendanceRepository.findAll();
 
+    }
+
+    @Override
+    public List<ViewAttendanceProjection> viewAttendance(
+            ViewAttendanceRequest request) {
+
+        LocalDate fromDate = request.getFromDate();
+        LocalDate toDate = request.getToDate();
+
+        if (fromDate == null || toDate == null) {
+            throw new IllegalArgumentException(
+                    "From date and To date are required");
+        }
+
+        if (toDate.isBefore(fromDate)) {
+            throw new IllegalArgumentException(
+                    "To date cannot be before From date");
+        }
+
+        if (toDate.isAfter(
+                fromDate.plusMonths(1).minusDays(1))) {
+
+            throw new IllegalArgumentException(
+                    "Attendance view is limited to one month");
+        }
+
+        String standardName = request.getStandardName();
+        Long courseId = request.getCourseId();
+
+        if (standardName != null
+                && !standardName.isBlank()
+                && courseId != null) {
+
+            throw new IllegalArgumentException(
+                    "Provide either standardName or courseId, not both");
+        }
+
+        if ((standardName == null || standardName.isBlank())
+                && courseId == null) {
+
+            throw new IllegalArgumentException(
+                    "Either standardName or courseId is required");
+        }
+
+        return repository.findAttendanceForView(
+                fromDate,
+                toDate,
+                standardName,
+                courseId);
     }
 }
