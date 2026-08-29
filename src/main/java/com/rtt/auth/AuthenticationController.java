@@ -1,6 +1,7 @@
 package com.rtt.auth;
 
 import com.rtt.common.SuccessRegistrationResponse;
+import com.rtt.config.LogoutService;
 import com.rtt.constants.RegistrationResponseConstants;
 import com.rtt.exception.AuthenticationException;
 import com.rtt.exception.RegistrationException;
@@ -10,6 +11,7 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class AuthenticationController {
 
   private final AuthenticationService authenticationService;
+  private final LogoutService logoutService;
 
   @PostMapping("/register")
   public ResponseEntity<RegistrationServiceResponse> register(
@@ -56,5 +59,15 @@ public class AuthenticationController {
     authenticationService.refreshToken(request, response);
   }
 
+  @PostMapping("/logout")
+  public ResponseEntity<Void> logout(
+          HttpServletRequest request,
+          HttpServletResponse response,
+          Authentication authentication) {
+
+    logoutService.logout(request, response, authentication);
+
+    return ResponseEntity.ok().build();
+  }
 
 }
