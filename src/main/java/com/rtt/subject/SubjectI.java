@@ -8,7 +8,5 @@ import java.util.Map;
 
 public interface SubjectI {
     public SuccessRegistrationResponse createSubject(SubjectRequest subjectRequest);
-
-    public List<Subject>getSubjectList();
-    public Map<Integer, String> getSubjectNameList();
+    Map<Integer, String> getSubjectNameList();
 }

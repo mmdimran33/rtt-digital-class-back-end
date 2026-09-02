@@ -39,11 +39,6 @@ public class SubjectServiceImpl implements SubjectI{
     }
 
     @Override
-    public List<Subject> getSubjectList() {
-        return null;
-    }
-
-    @Override
     public Map<Integer, String> getSubjectNameList() {
         // Fetch the subject data from the repository
         List<Object[]> repo = repository.getSubjectNameList();

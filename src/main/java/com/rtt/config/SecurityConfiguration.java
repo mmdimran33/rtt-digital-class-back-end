@@ -51,7 +51,6 @@ public class SecurityConfiguration {
             "/api/v1/standardandfees/***",
             "/api/v1/teachers/**",
             "/api/v1/student/**",
-            "",
             "/api/v1/subjects/**",
             "/api/v1/attendance/**",
             "/api/v1/fees-details-mgmt/**",
