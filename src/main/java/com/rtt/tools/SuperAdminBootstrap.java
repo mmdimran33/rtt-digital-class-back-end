@@ -83,8 +83,8 @@ public class SuperAdminBootstrap {
         }
 
         User admin = new User();
-        admin.setEmail("imran.superadmin");
-        admin.setPassword(passwordEncoder.encode("imran.superadmin@123"));
+        admin.setEmail("rk.study");
+        admin.setPassword(passwordEncoder.encode("rk.study@2026"));
         admin.setRole(Role.SUPERADMIN);
 
         userRepository.save(admin);
